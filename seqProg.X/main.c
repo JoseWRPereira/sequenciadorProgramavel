@@ -66,15 +66,15 @@ void main(void)
                     
             case 1:
                     dispLCD(0, 2, "PIController");
-                    delay(1000);
+                    delay(3000);
                     dispLCD_clr();
                     estado = 2;
                     break;
                     
              case 2:
-                    dispLCD(0, 0, "Posicao inicial");
-                    dispLCD(1, 0, " dos atuadores");
-                    delay(1000);
+                    dispLCD(0, 0, "Ajuste o inicio ");
+                    dispLCD(1, 0, "   do sistema   ");
+                    delay(3000);
                     dispLCD_clr();
                     estado = 3;
                 
@@ -109,6 +109,8 @@ void main(void)
             case 10:
                     dispLCD_clr();
                     iPassos = 0;
+                    dispLCD(0, 0, "Insira os passos");
+                    dispLCD(1, 0, "     00/20      ");
                     estado = 11;
                     break;
 
@@ -134,6 +136,8 @@ void main(void)
                                     
                         case '3':   
                                     retirar_fila();
+                                    if( iPassos > ( pos_fila()-8 ) && iPassos )
+                                        iPassos = ( pos_fila()-8 );
                                     estado = 13;
                                     break;            
                     }
