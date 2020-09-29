@@ -109,6 +109,8 @@ void main(void)
             case 10:
                     dispLCD_clr();
                     iPassos = 0;
+                    dispLCD(0, 0, "Insira os passos");
+                    dispLCD(1, 0, "     00/20      ");
                     estado = 11;
                     break;
 
@@ -134,6 +136,8 @@ void main(void)
                                     
                         case '3':   
                                     retirar_fila();
+                                    if( iPassos > ( pos_fila()-8 ) && iPassos )
+                                        iPassos = ( pos_fila()-8 );
                                     estado = 13;
                                     break;            
                     }
