@@ -16,6 +16,11 @@ union
     };  
 }atuador;
 
+char ler_posfila(char i)
+{
+    return ( fila[i] );
+}
+
 void alt_estado( char tecla )
 {
     switch(tecla)

@@ -24,6 +24,9 @@
 #include "dispLCD4vias.h"
 #include "teclado.h"
 #include "fifo.h"
+#include "serialIO.h"
+#include "atuadores.h"
+
 
 void main(void)
 {    
@@ -38,7 +41,41 @@ void main(void)
     char iPassos;
     char lin2[17] = "                ";
     char contPassos = 0;
-
+    unsigned char vetorIn[1] = { 0 };
+    unsigned char vetorOut[1] = { 0 };
+    initSerialIO( vetorIn, vetorOut, 1 );
+    char meAtuadores = 0;
+    char auxPasso = 0;
+    
+    while( 1 )                      // Laço de repetição infinita.
+    {
+        vetorOut[0] = vetorIn[0];
+        serialIOscan();
+        switch(meAtuadores)
+        {
+            case 0:
+                
+                break;
+            
+            case 1:
+                //ler_passo();
+                auxPasso = 'A';
+                meAtuadores = 2;
+                break;
+            
+            case 2:
+                set_passo(auxPasso);
+                meAtuadores = 3;
+                break;
+                
+            case 3:
+                if(ler_sensor(auxPasso))
+                {
+                    meAtuadores = 1;
+                }
+                break;
+        }
+    }
     while(1)
     {        
          switch(estado)
@@ -186,6 +223,8 @@ void main(void)
                     break;                                                                                                                                                         
         }
     }
+
+    
     
     return;
 }
