@@ -19,5 +19,7 @@ char ler_estado(char tecla);
 void init_atuadores(void);
 char char_fila(char i);
 void retirar_fila(void);
+char ler_posfila(char i);
+
 
 #endif	/* FIFO_H */
