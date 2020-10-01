@@ -20,8 +20,8 @@
 #include <xc.h>
 #include "serialIO.h"
 
-unsigned char * ptrSerialIn;
-unsigned char * ptrSerialOut;
+char * ptrSerialIn;
+char * ptrSerialOut;
 unsigned char   lenSerialIO;
 
 // ************************** HAL
@@ -85,7 +85,7 @@ void serialIOscan( void )
 }
 
 //***************** Inicialiação de interface com SerialIO
-void initSerialIO( unsigned char * ptrIn, unsigned char * ptrOut, unsigned char length )
+void initSerialIO( char * ptrIn, char * ptrOut, unsigned char length )
 {
     ptrSerialIn = ptrIn;
     ptrSerialOut = ptrOut;

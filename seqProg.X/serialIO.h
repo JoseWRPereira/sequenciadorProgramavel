@@ -9,7 +9,7 @@
 #ifndef SERIALIO_H
 #define	SERIALIO_H
 
-void initSerialIO( unsigned char * ptrIn, unsigned char * ptrOut, unsigned char length );
+void initSerialIO( char * ptrIn, char * ptrOut, unsigned char length );
 void serialIOscan( void );
 
 #endif	/* SERIALIO_H */

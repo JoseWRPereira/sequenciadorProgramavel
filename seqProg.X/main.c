@@ -28,6 +28,8 @@
 #include "atuadores.h"
 
 
+
+
 void main(void)
 {    
     dispLCD_init();
@@ -41,37 +43,43 @@ void main(void)
     char iPassos;
     char lin2[17] = "                ";
     char contPassos = 0;
-    unsigned char vetorIn[1] = { 0 };
-    unsigned char vetorOut[1] = { 0 };
+    char vetorIn[1] = { 0 };
+    char vetorOut[1] = { 0 };
     initSerialIO( vetorIn, vetorOut, 1 );
     char meAtuadores = 0;
-    char auxPasso = 0;
+    char auxPasso = 0; 
+    char aux = 0;
     
     while( 1 )                      // Laço de repetição infinita.
     {
-        vetorOut[0] = vetorIn[0];
-        serialIOscan();
+       //vetorOut[0] = vetorIn[0];
+        serialIOscan();        
+        
         switch(meAtuadores)
         {
-            case 0:
-                
-                break;
+            case 0: meAtuadores = 1;     break;
             
-            case 1:
-                //ler_passo();
-                auxPasso = 'A';
+            case 1:                
+                switch( aux )
+                {
+                    case 0:     auxPasso = 'A';     break;
+                    case 1:     auxPasso = 'B';     break;
+                    case 2:     auxPasso = 'b';     break;
+                    case 3:     auxPasso = 'a';     break;
+                }
+                aux = (aux+1) % 4;                
                 meAtuadores = 2;
                 break;
             
             case 2:
-                set_passo(auxPasso);
+                set_passo(auxPasso, vetorOut);
                 meAtuadores = 3;
                 break;
                 
             case 3:
-                if(ler_sensor(auxPasso))
+                if( ler_sensor(auxPasso, vetorIn) )
                 {
-                    meAtuadores = 1;
+                    meAtuadores = 1;                    
                 }
                 break;
         }
@@ -220,7 +228,23 @@ void main(void)
                     if( iPassos )
                         iPassos--;
                     estado = 13;
-                    break;                                                                                                                                                         
+                    break;
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
         }
     }
 
