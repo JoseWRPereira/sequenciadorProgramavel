@@ -50,6 +50,7 @@ void main(void)
     char auxPasso = 0; 
     char aux = 0;
     
+    
     while( 1 )                      // Laço de repetição infinita.
     {
        //vetorOut[0] = vetorIn[0];

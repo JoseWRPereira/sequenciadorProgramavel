@@ -49,6 +49,7 @@ serialOut_t estadoAtuadores;*/
 
 serialIn_t sensor;*/
 
+
 void set_passo(char passo, char* ptr)
 {
     switch (passo)

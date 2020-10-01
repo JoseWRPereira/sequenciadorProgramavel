@@ -22,4 +22,5 @@ void retirar_fila(void);
 char ler_posfila(char i);
 
 
+
 #endif	/* FIFO_H */
