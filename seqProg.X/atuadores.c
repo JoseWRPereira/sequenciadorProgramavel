@@ -80,5 +80,3 @@ char ler_sensor(char passo, char* ptr)
     }
         
 }
-
-

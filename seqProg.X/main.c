@@ -46,44 +46,44 @@ void main(void)
     char vetorIn[1] = { 0 };
     char vetorOut[1] = { 0 };
     initSerialIO( vetorIn, vetorOut, 1 );
-    char meAtuadores = 0;
+    char meAtuadores = -1;
     char auxPasso = 0; 
     char aux = 0;
     
-    while( 1 )                      // Laço de repetição infinita.
-    {
-       //vetorOut[0] = vetorIn[0];
-        serialIOscan();        
-        
-        switch(meAtuadores)
-        {
-            case 0: meAtuadores = 1;     break;
-            
-            case 1:                
-                switch( aux )
-                {
-                    case 0:     auxPasso = 'A';     break;
-                    case 1:     auxPasso = 'B';     break;
-                    case 2:     auxPasso = 'b';     break;
-                    case 3:     auxPasso = 'a';     break;
-                }
-                aux = (aux+1) % 4;                
-                meAtuadores = 2;
-                break;
-            
-            case 2:
-                set_passo(auxPasso, vetorOut);
-                meAtuadores = 3;
-                break;
-                
-            case 3:
-                if( ler_sensor(auxPasso, vetorIn) )
-                {
-                    meAtuadores = 1;                    
-                }
-                break;
-        }
-    }
+//    while( 1 )                      // Laço de repetição infinita.
+//    {
+//       //vetorOut[0] = vetorIn[0];
+//        serialIOscan();        
+//        
+//        switch(meAtuadores)
+//        {
+//            case 0: meAtuadores = 1;     break;
+//            
+//            case 1:                
+//                switch( aux )
+//                {
+//                    case 0:     auxPasso = 'A';     break;
+//                    case 1:     auxPasso = 'B';     break;
+//                    case 2:     auxPasso = 'b';     break;
+//                    case 3:     auxPasso = 'a';     break;
+//                }
+//                aux = (aux+1) % 4;                
+//                meAtuadores = 2;
+//                break;
+//            
+//            case 2:
+//                set_passo(auxPasso, vetorOut);
+//                meAtuadores = 3;
+//                break;
+//                
+//            case 3:
+//                if( ler_sensor(auxPasso, vetorIn) )
+//                {
+//                    meAtuadores = 1;                    
+//                }
+//                break;
+//        }
+//    }
     while(1)
     {        
          switch(estado)
@@ -147,10 +147,8 @@ void main(void)
                     }
                     break;
 
-             
                     // TELA DE EDIÇAO
-                    
-                    
+
             case 10:
                     dispLCD_clr();
                     iPassos = 0;
@@ -184,7 +182,9 @@ void main(void)
                                     if( iPassos > ( pos_fila()-8 ) && iPassos )
                                         iPassos = ( pos_fila()-8 );
                                     estado = 13;
-                                    break;            
+                                    break;
+                                    
+                        case '#':   estado = 30;        break; 
                     }
                     break;
 
@@ -198,6 +198,7 @@ void main(void)
                     escreve_filaLCD( ler_fila(), iPassos );
                     estado = 14;
                     break;
+                    
              case 14:
                     lin2[0] = iPassos ? '<' : ' ';
                     lin2[15] = iPassos < (pos_fila()-8) ? '>' : ' ';  
@@ -209,15 +210,12 @@ void main(void)
                     lin2[9] = '0';
                     estado = 15;
                     break;
+                    
              case 15:
                     dispLCD( 1, 0, lin2 );
                     estado = 11;
                     break;
 
-
-
-
-                    
              case 20: 
                     if( pos_fila() > 8 && iPassos < pos_fila()-8 )
                         iPassos++;
@@ -230,26 +228,47 @@ void main(void)
                     estado = 13;
                     break;
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+             case 30:   
+                 dispLCD_clr();
+                 dispLCD(0, 0, "   Executando   ");
+                 dispLCD(1, 0, "     passos     ");
+                 estado = 70;
+                 meAtuadores = 0;     
+                 break; 
                     
                     
         }
-    }
+        serialIOscan();        
+        switch(meAtuadores)
+        {
+            case 0: meAtuadores = 1;     break;
 
-    
-    
+            case 1:                
+                auxPasso = ler_posfila(aux);
+                aux = (aux+1) % 21;
+                if(!auxPasso)
+                {
+                    reset_fila();
+                    aux = 0;
+                    estado = 2;
+                    meAtuadores = -1;
+                }
+                meAtuadores = 2;
+                break;
+
+            case 2:
+                    set_passo(auxPasso, vetorOut);
+                    meAtuadores = 3;
+                    break;
+
+            case 3:
+                    if( ler_sensor(auxPasso, vetorIn) )
+                    {
+                        meAtuadores = 1;                    
+                    }
+                    break;
+        }                                             
+    }
     return;
 }
 
