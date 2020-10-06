@@ -25,16 +25,17 @@ char * ptrSerialOut;
 unsigned char   lenSerialIO;
 
 // ************************** HAL
-#define SERIALIO_ADDRS 0x009
+#define SERIALIO_ADDRS 0x005
 
 typedef union
 {
     struct
-    {
-        unsigned char SHLD:1;
-        unsigned char CLK :1;
-        unsigned char OUT :1;
-        unsigned char IN  :1;
+    {         
+        unsigned char OUT   :1;
+        unsigned char IN    :1;
+        unsigned char CLK   :1;
+        unsigned char SHLD  :1;
+        unsigned char       :4;
     };
 } SERIALIObits_t;
 volatile SERIALIObits_t SERIALIO __at(SERIALIO_ADDRS);
@@ -91,23 +92,24 @@ void initSerialIO( char * ptrIn, char * ptrOut, unsigned char length )
     ptrSerialOut = ptrOut;
     lenSerialIO = length;
 // ************************** Serial IO Shift/Load
-    PORTEbits.RE0 = 0;
-    ANSELbits.ANS5 = 0;
-    TRISEbits.TRISE0 = 0;
+    PORTAbits.RA3 = 0;
+    ANSELbits.ANS3 = 0;
+    TRISAbits.TRISA3 = 0;
 
 // ************************** Serial IO Clock
-    PORTEbits.RE1 = 0;
-    ANSELbits.ANS6 = 0;
-    TRISEbits.TRISE1 = 0;
+    PORTAbits.RA2 = 0;
+    ANSELbits.ANS2 = 0;
+    TRISAbits.TRISA2 = 0;
 
 // ************************** Serial IO Output
-    PORTEbits.RE2 = 0;
-    ANSELbits.ANS7 = 0;
-    TRISEbits.TRISE2 = 0;
+    PORTAbits.RA0 = 0;
+    ANSELbits.ANS0 = 0;
+    TRISAbits.TRISA0 = 0;
 
 // ************************** Serial IO Input
-    PORTEbits.RE3;
-    TRISEbits.TRISE3 = 1;
+    PORTAbits.RA1;
+    ANSELbits.ANS1 = 0;
+    TRISAbits.TRISA1 = 1;
     
 //***************** Inicialização dos pinos de interface com os CIs
     SERIALIO.CLK = 0;
