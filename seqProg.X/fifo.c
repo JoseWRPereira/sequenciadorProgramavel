@@ -1,5 +1,6 @@
 #define TAM_VETOR 20
 
+ 
 
 char fila[TAM_VETOR];
 char ind_fila = 0;
