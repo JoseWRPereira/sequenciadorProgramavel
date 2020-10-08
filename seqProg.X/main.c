@@ -26,14 +26,26 @@
 #include "fifo.h"
 #include "serialIO.h"
 #include "atuadores.h"
+#include "timer1.h"
 
-
+void __interrupt() irq(void)
+{
+    INTCONbits.GIE = 0;
+    if(PIR1bits.TMR1IF && PIE1bits.TMR1IE)
+    {
+        PIR1bits.TMR1IF = 0;
+        //INT_T1;
+        intt1_1ms();
+    }
+    INTCONbits.GIE = 1;
+}
 
 
 void main(void)
 {    
     dispLCD_init();
     teclado_init();
+    timer1_init();
     
     char *texto;
     char tecla = 0;
@@ -50,40 +62,40 @@ void main(void)
     char auxPasso = 0; 
     char aux = 0;
     
-//    while( 1 )                      // Laço de repetição infinita.
-//    {
-//       //vetorOut[0] = vetorIn[0];
-//        serialIOscan();        
-//        
-//        switch(meAtuadores)
-//        {
-//            case 0: meAtuadores = 1;     break;
-//            
-//            case 1:                
-//                switch( aux )
-//                {
-//                    case 0:     auxPasso = 'A';     break;
-//                    case 1:     auxPasso = 'B';     break;
-//                    case 2:     auxPasso = 'b';     break;
-//                    case 3:     auxPasso = 'a';     break;
-//                }
-//                aux = (aux+1) % 4;                
-//                meAtuadores = 2;
-//                break;
-//            
-//            case 2:
-//                set_passo(auxPasso, vetorOut);
-//                meAtuadores = 3;
-//                break;
-//                
-//            case 3:
-//                if( ler_sensor(auxPasso, vetorIn) )
-//                {
-//                    meAtuadores = 1;                    
-//                }
-//                break;
-//        }
-//    }
+    
+    while( 1 )
+    {
+        switch(estado)
+        {
+            case 0:     
+                dispLCD(0, 0, "Arre");
+                estado = 1;
+                break;            
+                
+            case 1:
+                setT1(2000);
+                estado = 2;
+                break;
+                
+            case 2:
+                if(!statusT1())
+                    estado = 3;                
+                break;
+                
+            case 3:
+                dispLCD(0, 0, "Egua");
+                setT1(2000);
+                estado = 4;
+                break;
+                
+            case 4:
+                if(!statusT1())
+                    estado = 0;                
+                break;
+                
+        }
+    }
+
     while(1)
     {        
          switch(estado)
@@ -262,7 +274,7 @@ void main(void)
                     break;
 
             case 3:
-                    if( ler_sensor(auxPasso, vetorIn) )
+                    if( ler_sensor(auxPasso, vetorIn))
                     {
                         meAtuadores = 1;                    
                     }
@@ -271,4 +283,3 @@ void main(void)
     }
     return;
 }
-
