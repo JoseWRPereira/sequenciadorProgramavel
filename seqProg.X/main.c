@@ -63,7 +63,7 @@ void main(void)
     char aux = 0;
     
     
-    while( 1 )
+    /*while( 1 )
     {
         switch(estado)
         {
@@ -94,7 +94,7 @@ void main(void)
                 break;
                 
         }
-    }
+    }*/
 
     while(1)
     {        
@@ -196,6 +196,8 @@ void main(void)
                                     estado = 13;
                                     break;
                                     
+                        case '9':    
+                                    
                         case '#':   estado = 30;        break; 
                     }
                     break;
@@ -269,16 +271,22 @@ void main(void)
                 break;
 
             case 2:
-                    set_passo(auxPasso, vetorOut);
+                    set_passo(auxPasso, vetorOut);                    
+                    setT1(1000);
                     meAtuadores = 3;
                     break;
 
             case 3:
-                    if( ler_sensor(auxPasso, vetorIn))
+                    if( ler_sensor(auxPasso, vetorIn) )
                     {
                         meAtuadores = 1;                    
                     }
+                    if( !statusT1() )
+                        meAtuadores = 4;
                     break;
+                    
+            case 4:
+                    meAtuadores = 1;
         }                                             
     }
     return;
