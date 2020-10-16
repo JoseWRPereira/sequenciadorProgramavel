@@ -165,7 +165,7 @@ void main(void)
                         case 'B':   alt_estado(tecla); tela[7]  = ler_estado('B') ? '+' : '-';     break;
                         case 'C':   alt_estado(tecla); tela[10] = ler_estado('C') ? '+' : '-';     break;
                         case 'D':   alt_estado(tecla); tela[13] = ler_estado('D') ? '+' : '-';     break;
-                        case '#':   estado = 10;                                                   break;                        
+                        case TECLA_ENTER:   estado = 10;                                           break;                        
                     }
                     break;
 
@@ -192,10 +192,10 @@ void main(void)
                                         iPassos = pos_fila()-8;         //alteracao feita                                    
                                     estado = 12;
                                     break;
-                        case '>':
+                        case TECLA_RIGHT:
                                     estado = 20;
                                     break;
-                        case '<':
+                        case TECLA_LEFT:
                                     estado = 21;                        
                                     break;
                                     
@@ -208,7 +208,7 @@ void main(void)
                                     
                         case '9':    
                                     
-                        case '#':   estado = 30;        break; 
+                        case TECLA_ENTER:   estado = 30;        break; 
                     }
                     break;
 
