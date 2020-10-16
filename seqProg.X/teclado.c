@@ -48,8 +48,8 @@ void teclado_init( void )
 
 
 char teclas[4][4] = {{'1','2','3','A'},
-                     {'<','5','>','B'},
-                     {'7','8','(','C'},
+                     {'4','5','6','B'},
+                     {'7','8','9','C'},
                      {'*','0','#','D'}};
 
 unsigned char teclado_scan( void )
