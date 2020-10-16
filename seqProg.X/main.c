@@ -37,7 +37,7 @@ void __interrupt() irq(void)
         //INT_T1;
         intt1_1ms();
     }
-    INTCONbits.GIE = 1;
+    INTCONbits.GIE = 1;    
 }
 
 
@@ -63,7 +63,7 @@ void main(void)
     char aux = 0;
     
     
-    while( 1 )
+    /*while( 1 )
     {
         switch(estado)
         {
@@ -94,7 +94,7 @@ void main(void)
                 break;
                 
         }
-    }
+    }*/
 
     while(1)
     {        
@@ -123,32 +123,42 @@ void main(void)
                     
             case 1:
                     dispLCD(0, 2, "PIController");
-                    delay(3000);
-                    dispLCD_clr();
+                    setT1(2000);                    
                     estado = 2;
                     break;
                     
              case 2:
+                    if(!statusT1())
+                        estado = 3;                    
+                    break;
+                    
+             case 3:
+                    dispLCD_clr();
                     dispLCD(0, 0, "Ajuste o inicio ");
                     dispLCD(1, 0, "   do sistema   ");
-                    delay(3000);
-                    dispLCD_clr();
-                    estado = 3;
-                
-            case 3:
-                    init_atuadores();                    
+                    setT1(4000);
                     estado = 4;
+                
+             case 4:
+                    if(!statusT1())
+                        estado = 5;
+                    break;
+                    
+            case 5:
+                    init_atuadores();                    
+                    estado = 6;
                     break;
             
-            case 4:
+            case 6:
+                    dispLCD_clr();
                     exib_LCD( tela );                    
-                    estado = 5;
+                    estado = 7;
                     break;
                             
-            case 5:
+            case 7:
                     tecla = teclado_borda();
                     if( tecla )                             // NAO ALTERAR DE POSICAO
-                        estado = 4;                    
+                        estado = 6;                    
                     switch(tecla)
                     {
                         case 'A':   alt_estado(tecla); tela[4]  = ler_estado('A') ? '+' : '-';     break;
@@ -195,6 +205,8 @@ void main(void)
                                         iPassos = ( pos_fila()-8 );
                                     estado = 13;
                                     break;
+                                    
+                        case '9':    
                                     
                         case '#':   estado = 30;        break; 
                     }
@@ -264,21 +276,30 @@ void main(void)
                     aux = 0;
                     estado = 2;
                     meAtuadores = -1;
+                    break;
                 }
                 meAtuadores = 2;
                 break;
 
             case 2:
-                    set_passo(auxPasso, vetorOut);
+                    set_passo(auxPasso, vetorOut);                    
+                    //setT1(1000);
                     meAtuadores = 3;
                     break;
 
             case 3:
-                    if( ler_sensor(auxPasso, vetorIn))
+                    if( ler_sensor(auxPasso, vetorIn) )
+                        meAtuadores = 1;                                                                   
+                    break;
+                    /*else if( !statusT1() )
                     {
-                        meAtuadores = 1;                    
+                        meAtuadores = 4;                        
                     }
                     break;
+                    
+            case 4:
+                    meAtuadores = 1;
+                    break;*/
         }                                             
     }
     return;

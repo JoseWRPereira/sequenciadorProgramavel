@@ -33,7 +33,10 @@ void setT1( int c )
     t1cont = c;
     T1CONbits.TMR1ON = 1;
 }
+
+
 int statusT1( void )
 {
     return( t1cont );
 }
+
