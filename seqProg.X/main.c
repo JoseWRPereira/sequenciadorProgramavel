@@ -27,6 +27,7 @@
 #include "serialIO.h"
 #include "atuadores.h"
 #include "timer1.h"
+#include "estados.h"
 
 void __interrupt() irq(void)
 {
@@ -49,7 +50,7 @@ void main(void)
     
     char *texto;
     char tecla = 0;
-    char estado = 0;
+    char estado = INICIO;
     char tela[16] = {"   A- B- C- D-  "};
     char atuador;
     char iPassos;
@@ -63,44 +64,12 @@ void main(void)
     char aux = 0;
     
     
-    /*while( 1 )
-    {
-        switch(estado)
-        {
-            case 0:     
-                dispLCD(0, 0, "Arre");
-                estado = 1;
-                break;            
-                
-            case 1:
-                setT1(2000);
-                estado = 2;
-                break;
-                
-            case 2:
-                if(!statusT1())
-                    estado = 3;                
-                break;
-                
-            case 3:
-                dispLCD(0, 0, "Egua");
-                setT1(2000);
-                estado = 4;
-                break;
-                
-            case 4:
-                if(!statusT1())
-                    estado = 0;                
-                break;
-                
-        }
-    }*/
 
     while(1)
     {        
          switch(estado)
         {        
-            case 0:
+            case INICIO:
                     for(char i = 0; i <= 1; i++)
                     {
                         for(char j = 0; j <= 15; j++)
@@ -118,68 +87,68 @@ void main(void)
                             delay(50);
                         }
                     }
-                    estado = 1;
+                    estado = TELA_EMPRESA;
                     break;
                     
-            case 1:
+            case TELA_EMPRESA:
                     dispLCD(0, 2, "PIController");
                     setT1(2000);                    
-                    estado = 2;
+                    estado = TELA_EMPRESA_DELAY;
                     break;
                     
-             case 2:
+             case TELA_EMPRESA_DELAY:
                     if(!statusT1())
-                        estado = 3;                    
+                        estado = TELA_AJUSTE_INICIAL;                    
                     break;
                     
-             case 3:
+             case TELA_AJUSTE_INICIAL:
                     dispLCD_clr();
                     dispLCD(0, 0, "Ajuste o inicio ");
                     dispLCD(1, 0, "   do sistema   ");
                     setT1(4000);
-                    estado = 4;
+                    estado = TELA_AJUSTE_INICIAL_DELAY;
                 
-             case 4:
+             case TELA_AJUSTE_INICIAL_DELAY:
                     if(!statusT1())
-                        estado = 5;
+                        estado = INICIO_ATUADORES;
                     break;
                     
-            case 5:
+            case INICIO_ATUADORES:
                     init_atuadores();                    
-                    estado = 6;
+                    estado = TELA_DISPLAY_ATUADORES;
                     break;
             
-            case 6:
+            case TELA_DISPLAY_ATUADORES:
                     dispLCD_clr();
                     exib_LCD( tela );                    
-                    estado = 7;
+                    estado = TELA_EDICAO_ATUADORES;
                     break;
                             
-            case 7:
+            case TELA_EDICAO_ATUADORES:
                     tecla = teclado_borda();
                     if( tecla )                             // NAO ALTERAR DE POSICAO
-                        estado = 6;                    
+                        estado = TELA_DISPLAY_ATUADORES;                    
                     switch(tecla)
                     {
                         case 'A':   alt_estado(tecla); tela[4]  = ler_estado('A') ? '+' : '-';     break;
                         case 'B':   alt_estado(tecla); tela[7]  = ler_estado('B') ? '+' : '-';     break;
                         case 'C':   alt_estado(tecla); tela[10] = ler_estado('C') ? '+' : '-';     break;
                         case 'D':   alt_estado(tecla); tela[13] = ler_estado('D') ? '+' : '-';     break;
-                        case TECLA_ENTER:   estado = 10;                                           break;                        
+                        case TECLA_ENTER:   estado = TELA_INSERIR_PASSOS;                          break;                        
                     }
                     break;
 
                     // TELA DE EDIÇAO
 
-            case 10:
+            case TELA_INSERIR_PASSOS:
                     dispLCD_clr();
                     iPassos = 0;
                     dispLCD(0, 0, "Insira os passos");
                     dispLCD(1, 0, "     00/20      ");
-                    estado = 11;
+                    estado = TELA_EDITAR_PASSOS;
                     break;
 
-             case 11:
+             case TELA_EDITAR_PASSOS:
                     tecla = teclado_borda();
                     switch( tecla )
                     {
@@ -190,40 +159,40 @@ void main(void)
                                     atuador = tecla;     
                                     if(iPassos < pos_fila()-8)
                                         iPassos = pos_fila()-8;         //alteracao feita                                    
-                                    estado = 12;
+                                    estado = ME_ALTERA_ESTADO;
                                     break;
                         case TECLA_RIGHT:
-                                    estado = 20;
+                                    estado = ME_LER_POS_FILA;
                                     break;
                         case TECLA_LEFT:
-                                    estado = 21;                        
+                                    estado = ME_LER_PASSOS;                        
                                     break;
                                     
                         case '3':   
                                     retirar_fila();
                                     if( iPassos > ( pos_fila()-8 ) && iPassos )
                                         iPassos = ( pos_fila()-8 );
-                                    estado = 13;
+                                    estado = ME_ESCREVE_FILA;
                                     break;
                                     
                         case '9':    
                                     
-                        case TECLA_ENTER:   estado = 30;        break; 
+                        case TECLA_ENTER:   estado = TELA_EXECUTANDO_PASSOS;        break; 
                     }
                     break;
 
-             case 12:
+             case ME_ALTERA_ESTADO:
                     alt_estado(atuador);  
                     inserir_fila( ler_estado(atuador) ? atuador : atuador|0x20 );
-                    estado = 20;
+                    estado = ME_LER_POS_FILA;
                     break;
 
-             case 13:
+             case ME_ESCREVE_FILA:
                     escreve_filaLCD( ler_fila(), iPassos );
-                    estado = 14;
+                    estado = ME_CONTAR_PASSOS;
                     break;
                     
-             case 14:
+             case ME_CONTAR_PASSOS:
                     lin2[0] = iPassos ? '<' : ' ';
                     lin2[15] = iPassos < (pos_fila()-8) ? '>' : ' ';  
                     contPassos = pos_fila();                    
@@ -232,32 +201,32 @@ void main(void)
                     lin2[7] = '/';                                        
                     lin2[8] = '2';
                     lin2[9] = '0';
-                    estado = 15;
+                    estado = TELA_CONTAGEM_PASSOS;
                     break;
                     
-             case 15:
+             case TELA_CONTAGEM_PASSOS:
                     dispLCD( 1, 0, lin2 );
-                    estado = 11;
+                    estado = TELA_EDITAR_PASSOS;
                     break;
 
-             case 20: 
+             case ME_LER_POS_FILA: 
                     if( pos_fila() > 8 && iPassos < pos_fila()-8 )
                         iPassos++;
-                    estado = 13;
+                    estado = ME_ESCREVE_FILA;
                     break;
                     
-             case 21:
+             case ME_LER_PASSOS:
                     if( iPassos )
                         iPassos--;
-                    estado = 13;
+                    estado = ME_ESCREVE_FILA;
                     break;
                     
-             case 30:   
+             case TELA_EXECUTANDO_PASSOS:   
                  dispLCD_clr();
                  dispLCD(0, 0, "   Executando   ");
                  dispLCD(1, 0, "     passos     ");
                  estado = 70;
-                 meAtuadores = 0;     
+                 meAtuadores = INICIO;     
                  break; 
                     
                     
@@ -274,7 +243,7 @@ void main(void)
                 {
                     reset_fila();
                     aux = 0;
-                    estado = 2;
+                    estado = TELA_EMPRESA_DELAY;
                     meAtuadores = -1;
                     break;
                 }
