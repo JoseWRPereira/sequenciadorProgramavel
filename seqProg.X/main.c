@@ -176,7 +176,7 @@ void main(void)
 
                                 case TECLA_ENTER:   estado = TELA_EXECUTANDO_PASSOS;        break; 
 
-                                case TECLA_T:       estado = CONFIG_TEMPO;                   break;
+                                case TECLA_T:       estado = TELA_EDITATEMPO;               break;
                             }
                             break; 
 
@@ -199,33 +199,34 @@ void main(void)
                  meAtuadores = INICIO;                 
                  break;
                  
-//             case CONFIG_TEMPO:
-//                            tecla = teclado_borda();
-//                            if(tecla >= '0' && tecla <= '9')
-//                            {
-//                                conc_num(tecla, &num);
-//                                estado = TELA_EDITATEMPO;
-//                            }
-//                            if(tecla == TECLA_DELETE)
-//                            {
-//                                apaga_num(&num);
-//                                estado = TELA_EDITATEMPO;
-//                            }
-//                            if(tecla == TECLA_ENTER)
-//                                estado = INSERIR_TEMPOFILA;
-//                            break;
-//                            
-//             case TELA_EDITATEMPO:
-//                            dispLCD(1, 0, "cfg tempo:     s");
-//                            dispLCD_num(1, 11, num, 3);
-//                            estado = CONFIG_TEMPO;
-//                            break;
-//                            
-//             case INSERIR_TEMPOFILA:
-//                            inserir_fila( ((char) num) | 0x80 );
-//                            estado = ME_ESCREVE_FILA;
-//                            break;                                                                         
-// 
+             case CONFIG_TEMPO:
+                            tecla = teclado_borda();
+                            if(tecla >= '0' && tecla <= '9')
+                            {
+                                dignum_conc(tecla, &num);
+                                estado = TELA_EDITATEMPO;
+                            }
+                            if(tecla == TECLA_DELETE)
+                            {
+                                dignum_apagar(&num);
+                                estado = TELA_EDITATEMPO;
+                            }
+                            if(tecla == TECLA_ENTER)
+                                estado = INSERIR_TEMPOFILA;
+                            break;
+                            
+             case TELA_EDITATEMPO:
+                            dispLCD(1, 0, "cfg tempo:     s");
+                            dispLCD_num(1, 11, num, 3);
+                            estado = CONFIG_TEMPO;
+                            break;
+                            
+             case INSERIR_TEMPOFILA:
+                            fifo_add_tempo(num);
+                            dispLCD_clr();
+                            estado = TELA_PRINTFILA;
+                            break;                                                                         
+ 
          }
  
         serialIOscan();     
