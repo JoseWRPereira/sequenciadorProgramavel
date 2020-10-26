@@ -22,14 +22,13 @@
 #include "config.h"
 #include "fifo.h"
 #include "delay.h"
+#include "dispLCD4vias.h"
 
 
 //***************** Interface com PORTs/Pinos
 #define LCD_BUS         LCDbits.BUS
 #define LCD_EN          LCDbits.EN
 #define LCD_RS          LCDbits.RS
-#define LCD_ROWS        2
-#define LCD_COLS        16
 #define LCD_ADDRS       0x006
 
 
@@ -231,77 +230,4 @@ void dispLCD_num(  unsigned char lin, unsigned char col,
 void dispLCD_clr( void )
 {
     dispLCD_instReg(LCD_CLEAR_DISPLAY);
-}
-
-char ind_pont = 0;
-
-void exib_LCD(char *string)
-{
-    ind_pont = pos_fila();
-    if(ind_pont <=16)
-        dispLCD( 0, 0, string );
-    if(ind_pont >16) 
-        dispLCD( 1, 0, &string[16]);
-}
-
-void escreve_filaLCD_LL(char * passos, char indice)
-{   
-    if(indice > 12)
-        indice = 12;
-    dispLCD_lincol( 0, 0);
-    for( char i = indice; i <= (indice+8); i++ )
-    {
-        if(*(passos+i) == 0)
-            dispLCD_dataReg(' ');    
-        if(*(passos+i) >= 65 && *(passos+i) <= 68)
-        {
-            dispLCD_dataReg(*(passos+i));
-            dispLCD_dataReg('+');
-        }
-        if(*(passos+i) >= 97 && *(passos+i) <= 100)
-        {
-            dispLCD_dataReg(*(passos+i) & 0xDF);
-            dispLCD_dataReg('-');
-        }                  
-    }
-}
-
-
-void escreve_filaLCD(char * passos, char indice)
-{
-    char completar = 0;
-    char comando = 0;
-
-    dispLCD_lincol( 0, 0);
-    for( char i=0; i<LCD_COLS; i++ )
-    {
-        comando = *(passos+indice+i);
-        
-        if( comando == 0 )
-            completar = 1;
-        
-        if( completar )
-        {
-            dispLCD_dataReg(' ');
-        }
-        else
-        {
-            switch( comando )
-            {
-                case 'A':
-                case 'B':
-                case 'C':
-                case 'D':
-                case 'a':
-                case 'b':
-                case 'c':
-                case 'd':
-                            dispLCD_dataReg( comando & ~0x20 );
-                            dispLCD_dataReg( comando & 0x20 ? '-': '+' );
-                            break;
-            }
-                    
-        }
-    }
-    
 }
