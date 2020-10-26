@@ -195,7 +195,8 @@ void main(void)
              case TELA_EXECUTANDO_PASSOS:
                  dispLCD_clr();
                  dispLCD(0, 0, "   Executando   ");
-                 dispLCD(0, 0, "     passos     ");
+                 dispLCD(1, 0, "     passos     ");
+                 estado = 70;
                  meAtuadores = INICIO;                 
                  break;
                  
@@ -204,7 +205,9 @@ void main(void)
                             if(tecla >= '0' && tecla <= '9')
                             {
                                 dignum_conc(tecla, &num);
-                                estado = TELA_EDITATEMPO;
+                                if(num > 120)
+                                    num = 120;
+                                estado = TELA_EDITATEMPO;                                
                             }
                             if(tecla == TECLA_DELETE)
                             {
@@ -231,45 +234,46 @@ void main(void)
  
         serialIOscan();     
  
-//        switch(meAtuadores)
-//        {
-//            case 0: meAtuadores = 1;     break;
-//
-//            case 1:                
-//                auxPasso = fifo_lerPos(aux);
-//                //ler_posfila(aux);
-//                aux = (aux+1) % 21;
-//                if(!auxPasso)
-//                {
-//                    reset_fila();
-//                    aux = 0;
-//                    estado = TELA_EMPRESA_DELAY;
-//                    meAtuadores = -1;
-//                    break;
-//                }
-//                meAtuadores = 2;
-//                break;
-//
-//            case 2:
-//                    set_passo(auxPasso, vetorOut);                    
-//                    //setT1(1000);
-//                    meAtuadores = 3;
-//                    break;
-//
-//            case 3:
-//                    if( ler_sensor(auxPasso, vetorIn) )
-//                        meAtuadores = 1;                                                                   
-//                    break;
-//                    else if( !statusT1() )
-//                    {
-//                        meAtuadores = 4;                        
-//                    }
-//                    break;
-//                    
-//            case 4:
-//                    meAtuadores = 1;
-//                    break;
-//        }
+        switch(meAtuadores)
+        {
+            case 0: meAtuadores = 1;     break;
+
+            case 1:                
+                auxPasso = fifo_lerPos(aux);
+                //ler_posfila(aux);
+                aux = (aux+1) % 21;
+                if(!auxPasso)
+                {
+                    fifo_reset();
+                    //reset_fila();
+                    aux = 0;
+                    estado = TELA_AJUSTE_INICIAL;
+                    meAtuadores = -1;
+                    break;
+                }
+                meAtuadores = 2;
+                break;
+
+            case 2:       
+                    if(auxPasso & 0x80)
+                        setT1( (auxPasso & 0x7F) * 1000 );
+                    else
+                        set_passo(auxPasso, vetorOut);                                        
+                    meAtuadores = 3;                       
+                    break;
+
+            case 3:
+                    if(auxPasso & 0x80)
+                        meAtuadores = 4;
+                    else if( ler_sensor(auxPasso, vetorIn) )                       
+                        meAtuadores = 1;                                                                   
+                    break; 
+                    
+            case 4:
+                    if( !statusT1() )
+                        meAtuadores = 1;
+                    break;
+        }
  
     }
     return;
