@@ -1,5 +1,8 @@
 /*
  * 08:26 16/10/2020 - Luis - criação do arquivo de histórico
+ * 09:33 26/10/2020 - Luis - implementação de passos de tempo, utilizando Timer1
+ * atualização do codigo no qual foi feito uma limpa de funções que nao estavam sendo utilizadas
+ * atualizando as existentes com auxilio do professor José, deixando o codigo mais simples de ser compreendido e modificado 
  * 
  * 
  * 
