@@ -13,11 +13,15 @@
 #define TELA_EDITAR_PASSOS              11
 #define ME_ALTERA_ESTADO                12
 #define ME_ESCREVE_FILA                 13
-#define ME_CONTAR_PASSOS                14
+#define TELA_CONTAR_PASSOS              14
 #define TELA_CONTAGEM_PASSOS            15
+#define TELA_PRINTFILA                  16
 #define ME_LER_POS_FILA                 20
 #define ME_LER_PASSOS                   21
 #define TELA_EXECUTANDO_PASSOS          30
+#define CONFIG_TEMPO                    40
+#define TELA_EDITATEMPO                 41      
+#define INSERIR_TEMPOFILA               42
 
 
 
