@@ -1,10 +1,63 @@
 #include "dispLCD4vias.h"
 
+
+#define FIFO_INDICE_INICIO 2
 #define TAM_VETOR 20
 
+
 char fila[TAM_VETOR];
-char ind_fila = 0;
-char ind_print = 0;
+char ind_fila = FIFO_INDICE_INICIO;
+char ind_print = FIFO_INDICE_INICIO;
+unsigned int ciclos = 0;
+unsigned int cont_ciclos = 0;
+unsigned char indice_passos = FIFO_INDICE_INICIO;
+
+
+void addIndicePassos(void)
+{
+    if(indice_passos < ind_fila)
+        indice_passos++;
+}
+
+void decIndicePassos(void)
+{
+    if(indice_passos > FIFO_INDICE_INICIO)
+        indice_passos--;
+}
+
+unsigned char getIndicePassos(void)
+{
+    return(indice_passos);
+}
+
+void resetIndicePassos(void)
+{
+    indice_passos = FIFO_INDICE_INICIO;
+}
+
+unsigned int getCiclos(void)
+{
+    int aux = fila[1];
+    aux <<= 8;
+    aux +=fila[0];
+    return(aux);
+}
+
+unsigned int getContCiclos(void)
+{
+    return(cont_ciclos);
+}
+
+void resetContCiclos(void)
+{
+    cont_ciclos = 0;
+}
+
+void addContCiclos(void)
+{
+    cont_ciclos++;
+}
+
 union 
 { 
     struct
@@ -60,11 +113,16 @@ void init_atuadores(void)
  *              Manipulação dos elementos/dados na fila
  */
 
+
+
 void fifo_reset(void)
 {        
-    fila[0] = ' ';
-    fila[1] = 0;
-    ind_fila = 0;    
+    for( char i=0; i<FIFO_INDICE_INICIO; i++ )
+        fila[i] = 0;
+
+    fila[FIFO_INDICE_INICIO] = ' ';
+    fila[FIFO_INDICE_INICIO + 1] = 0;
+    ind_fila = FIFO_INDICE_INICIO;    
 }
 char fifo_lerPos(char i)
 {
@@ -85,7 +143,8 @@ void fifo_delete(void)
 {
     if(ind_fila)
     {
-        ind_fila--;
+        if(ind_fila > FIFO_INDICE_INICIO)
+            ind_fila--;
         alt_atuador(fila[ind_fila] & ~0x20);
         fila[ind_fila] = 0;
     }
@@ -117,6 +176,12 @@ void fifo_add_tempo(const char t)
     }
 }
 
+void fifo_add_ciclo(unsigned int ciclos)
+{   
+    fila[0] = ciclos & 0x00ff;
+    fila[1] = ciclos >> 8;
+}
+
 
 
 char fifo_indice(void)
@@ -143,7 +208,7 @@ void fifo_indicePrint_inc( void )
 }
 void fifo_indicePrint_dec( void )
 {
-    if( ind_print )
+    if( ind_print > 2 )
         ind_print--;
 }
 
@@ -227,12 +292,12 @@ void fifo_print(void)
  *              Rotinas de impressão da fifo
  */
 
-void dignum_conc(char dig, int * ptrNum )
+void dignum_conc(char dig, unsigned int * ptrNum )
 {        
     *ptrNum = (*ptrNum * 10) + (dig - '0');        
 }
 
-void dignum_apagar(int * ptrNum )
+void dignum_apagar(unsigned int * ptrNum )
 {
     *ptrNum /= 10;    
 }

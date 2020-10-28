@@ -1,6 +1,7 @@
 #ifndef ESTADOS_H
 #define ESTADOS_H
 
+#define ME_ATUADORES_START              1
 #define INICIO                          0
 #define TELA_EMPRESA                    1
 #define TELA_EMPRESA_DELAY              2
@@ -22,6 +23,13 @@
 #define CONFIG_TEMPO                    40
 #define TELA_EDITATEMPO                 41      
 #define INSERIR_TEMPOFILA               42
+#define TELA_TITULO_REPETICAO           50
+#define TELA_DIGNUM_REPETICAO           51
+#define TELA_DIGNUM_DELAY               55
+#define TELA_CONFIG_REPETICAO           52
+#define TELA_EDITA_REPETICAO            53
+#define ME_INSERIR_CICLO_FILA           54
+#define ME_ESPERA_EXECUCAO              70
 
 
 
