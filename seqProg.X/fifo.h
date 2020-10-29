@@ -10,6 +10,7 @@
 #define	FIFO_H
 
 
+
 char ler_atuador(char tecla);
 void alt_atuador( char tecla );
 void init_atuadores(void);
@@ -25,9 +26,18 @@ char fifo_tam(void);
 void fifo_indicePrint_inc( void );
 void fifo_indicePrint_dec( void );
 void fifo_print(void);
-void dignum_conc(char dig, int * ptrNum );
-void dignum_apagar(int * ptrNum );
+void dignum_conc(char dig, unsigned int * ptrNum );
+void dignum_apagar(unsigned int * ptrNum );
 unsigned char dignum_tam(int num);
+void fifo_add_ciclo(unsigned int ciclos);
+unsigned int getCiclos(void);
+unsigned int getContCiclos(void);
+void resetContCiclos(void);
+void addContCiclos(void);
+void addIndicePassos(void);
+void decIndicePassos(void);
+unsigned char getIndicePassos(void);
+void resetIndicePassos(void);
 
 
 #endif	/* FIFO_H */
