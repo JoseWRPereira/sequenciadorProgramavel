@@ -285,13 +285,6 @@ void fifo_print(void)
     while( i <= LCD_COLS );
 }
 
-
-
-
-/* 
- *              Rotinas de impressão da fifo
- */
-
 void dignum_conc(char dig, unsigned int * ptrNum )
 {        
     *ptrNum = (*ptrNum * 10) + (dig - '0');        
@@ -313,50 +306,3 @@ unsigned char dignum_tam(int num)
     }
     return ( tam );
 }
-
-
-
-
-
-
-//void reset_fila(void)
-//{        
-//    fila[0] = ' ';
-//    fila[1] = 0;
-//    ind_fila = 0;    
-//}
-//char ler_posfila(char i)
-//{
-//    return ( fila[i] );
-//}
-//void mod_fila(char pos, char tecla)
-//{
-//    fila[pos] = tecla;
-//}
-//
-//void retirar_fila(void)
-//{
-//    if(ind_fila)
-//    {
-//        ind_fila--;
-//        alt_atuador(fila[ind_fila] & ~0x20);
-//        fila[ind_fila] = 0;
-//    }
-//}
-//void inserir_fila(const char passo)
-//{
-//    if(ind_fila < TAM_VETOR)
-//    {    
-//        if(passo)
-//        {
-//            fila[ind_fila] = passo;
-//            ind_fila++;
-//            fila[ind_fila] = 0;
-//        }
-//    }
-//}
-//char pos_fila(void)
-//{
-//    return ( ind_fila );
-//}
-
