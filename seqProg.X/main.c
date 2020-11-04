@@ -398,6 +398,12 @@ void main(void)
                             
                             if((getContCiclos() < getCiclos()) || (getCiclos() == 0))
                             {
+                                if(boolStop)
+                                {
+                                    estado = TELA_INSERIR_PASSOS;
+                                    meAtuadores = 1;
+                                    break;
+                                }
                                 resetIndicePassos();
                                 meAtuadores = 2;
                             }
