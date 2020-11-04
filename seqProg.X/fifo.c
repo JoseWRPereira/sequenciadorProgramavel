@@ -1,4 +1,5 @@
 #include "dispLCD4vias.h"
+#include "fifo.h"
 
 
 #define FIFO_INDICE_INICIO 2
@@ -148,6 +149,7 @@ void fifo_delete(void)
         alt_atuador(fila[ind_fila] & ~0x20);
         fila[ind_fila] = 0;
     }
+    fifo_alinharPrint();
 }
 
 void fifo_add(const char passo)
@@ -161,6 +163,7 @@ void fifo_add(const char passo)
             fila[ind_fila] = 0;
         }
     }
+    fifo_alinharPrint();
 }
 
 void fifo_add_tempo(const char t)
@@ -174,6 +177,7 @@ void fifo_add_tempo(const char t)
             fila[ind_fila] = 0;
         }
     }
+    fifo_alinharPrint();
 }
 
 void fifo_add_ciclo(unsigned int ciclos)
@@ -189,26 +193,31 @@ char fifo_indice(void)
     return ( ind_fila );
 }
 
+char fifo_disponivel( void )
+{
+    return( ind_fila < TAM_VETOR );
+}
+
 char fifo_tam(void)
 {
     return( TAM_VETOR );
 }
 
-
 void fifo_indicePrint_inc( void )
 {
-    ++ind_print;
-    if( ind_print < TAM_VETOR )
+    if( ind_print < TAM_VETOR-1 )
     {
-        if( !fila[ind_print] )
-            ind_print--;
+        if( ind_print < ind_fila-1 )
+            ind_print++;
+        else
+            ind_print = ind_fila-1;
     }
     else
         ind_print = TAM_VETOR-1;
 }
 void fifo_indicePrint_dec( void )
 {
-    if( ind_print > 2 )
+    if( ind_print > FIFO_INDICE_INICIO )
         ind_print--;
 }
 
@@ -254,10 +263,8 @@ void fifo_print(void)
                 dispLCD_dataReg(atraso + '0');
                 ++i;
                 
-//                dispLCD_num(0, i, comando & ~0x80, 1);
                 dispLCD_dataReg('s');
                 ++i;
-                //i+= tam_num(comando & ~0x80)+1;            
             }
             else
             {
@@ -306,3 +313,31 @@ unsigned char dignum_tam(int num)
     }
     return ( tam );
 }
+
+void fifo_alinharPrint( void )
+{
+    unsigned char i;
+    unsigned char aux;
+    unsigned char cont = 0;
+    
+    for( i=ind_fila-1; i>=FIFO_INDICE_INICIO; i-- )
+    {
+        aux = fila[i];
+        if( aux & 0x80 ) // Máscara para tempo
+        {
+            cont += dignum_tam( aux & 0x7F )+1;
+        }
+        else if( aux >= 'A' && aux <= 'z' )
+        {
+            cont += 2;
+        }
+        
+        if( cont > LCD_COLS )
+        {
+            break;
+        }
+        else
+            ind_print = i;
+    }
+}
+

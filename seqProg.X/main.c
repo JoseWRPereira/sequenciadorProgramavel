@@ -140,8 +140,6 @@ void main(void)
 
             case TELA_INSERIR_PASSOS:
                             dispLCD_clr();
-                            //fifo_reset();
-                            
                             dispLCD(0, 0, "Insira os passos");
                             estado = TELA_CONTAR_PASSOS;
                             break;
@@ -154,9 +152,12 @@ void main(void)
                                 case 'B': 
                                 case 'C': 
                                 case 'D': 
-                                            alt_atuador(tecla);  
-                                            fifo_add( ler_atuador(tecla) ? tecla : tecla|0x20 );
-                                            estado = TELA_PRINTFILA;
+                                            if( fifo_disponivel() )
+                                            {
+                                                alt_atuador(tecla);  
+                                                fifo_add( ler_atuador(tecla) ? tecla : tecla|0x20 );
+                                                estado = TELA_PRINTFILA;
+                                            }
                                             break;
                                 case TECLA_RIGHT:
                                             fifo_indicePrint_inc();
