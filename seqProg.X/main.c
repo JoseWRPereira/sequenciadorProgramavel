@@ -62,7 +62,12 @@ void main(void)
     char aux = 2;
     unsigned int num = 0;    
     unsigned int ciclos = 0;
-    
+    char boolPause = 0;
+    char boolStop = 0;
+    char pauseLeft = 0;
+    char pauseRight = 0;
+    char meAtAux = 0;
+    char next = 0;
 
     while(1)
     {        
@@ -204,6 +209,31 @@ void main(void)
                                 estado = TELA_PRINTFILA;
                                 dispLCD_clr();
                             }
+                            tecla = teclado_borda();
+                            switch(tecla)
+                            {
+                                case TECLA_PLAY:
+                                    boolPause = 0;
+                                    break;
+                                
+                                case TECLA_PAUSE:
+                                    boolPause = 1;
+                                    break;
+                                    
+                                case TECLA_STOP:
+                                    boolStop = 1;
+                                    break;
+                                    
+                                case TECLA_LEFT:
+                                    if(boolPause)
+                                        pauseLeft = 1;
+                                    break;
+                                    
+                                case TECLA_RIGHT:
+                                    if(boolPause)
+                                        pauseRight = 1;
+                                    break;
+                            }
                             break;
                  
              case CONFIG_TEMPO:
@@ -297,7 +327,7 @@ void main(void)
                             fifo_add_ciclo(ciclos);
                             estado = TELA_EXECUTANDO_PASSOS;
                             break;
-         }
+        }
  
         serialIOscan();     
  
@@ -313,22 +343,24 @@ void main(void)
 
             case 2:
                             auxPasso = fifo_lerPos(getIndicePassos());
-                            meAtuadores = 3;
+                           
+                            if(!boolPause || pauseLeft)
+                                meAtuadores = 3;
                             break;
 
-            case 3:       
+            case 3:
                             if(auxPasso & 0x80)
                                 setT1( (auxPasso & 0x7F) * 1000 );
                             else
-                                set_passo(auxPasso, vetorOut);                                        
-                            meAtuadores = 4;                       
+                                set_passo(auxPasso, vetorOut);
+                            meAtuadores = 4;
                             break;
 
             case 4:
                             if(auxPasso & 0x80)
                                 meAtuadores = 5;
                             else if( ler_sensor(auxPasso, vetorIn) )                       
-                                meAtuadores = 6;                                                                   
+                                meAtuadores = 6;
                             break; 
                     
             case 5:
@@ -337,15 +369,33 @@ void main(void)
                             break;
                     
             case 6:
+                            
+                            if(!boolPause || pauseLeft)
+                            {
+                                meAtuadores = 7;
+                            }
+                            break;
+                            
+            case 7:
+                            
                             addIndicePassos();
+                           
                             if(getIndicePassos() < fifo_indice())
                                 meAtuadores = 2;
                             else
-                                meAtuadores = 7;                    
+                                meAtuadores = 8;
+                            
+                            if(pauseLeft || pauseRight){
+                                tecla = TECLA_PAUSE;
+                            }
+                            pauseLeft = 0;
+                            pauseRight = 0;
+                            addContCiclos();
+                            
                             break;
                     
-            case 7:
-                            addContCiclos();
+            case 8:
+                            
                             if((getContCiclos() < getCiclos()) || (getCiclos() == 0))
                             {
                                 resetIndicePassos();
@@ -356,6 +406,8 @@ void main(void)
                                 meAtuadores = 0;                        
                             }
                             break;
+                            
+                            
         }
     }
     return;
