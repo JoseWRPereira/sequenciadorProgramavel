@@ -62,7 +62,18 @@ void main(void)
     char aux = 2;
     unsigned int num = 0;    
     unsigned int ciclos = 0;
-    
+    char botao = 0;
+#define STOP    0
+#define PLAY    1
+#define PAUSE   2
+#define STEP    3
+    char boolPause = 0;
+#define boolPlay !boolPause
+    char boolStop = 0;
+    char pauseLeft = 0;
+    char pauseRight = 0;
+    char meAtAux = 0;
+    char next = 0;
 
     while(1)
     {        
@@ -140,8 +151,6 @@ void main(void)
 
             case TELA_INSERIR_PASSOS:
                             dispLCD_clr();
-                            //fifo_reset();
-                            
                             dispLCD(0, 0, "Insira os passos");
                             estado = TELA_CONTAR_PASSOS;
                             break;
@@ -203,6 +212,26 @@ void main(void)
                             {
                                 estado = TELA_PRINTFILA;
                                 dispLCD_clr();
+                            }
+                            tecla = teclado_borda();
+                            switch(tecla)
+                            {
+                                case TECLA_PLAY:
+                                    botao = PLAY;
+                                    break;
+                                
+                                case TECLA_PAUSE:
+                                    botao = PAUSE;
+                                    break;
+                                    
+                                case TECLA_STOP:
+                                    botao = STOP;
+                                    break;
+                                   
+                                case TECLA_STEP:
+                                    if(botao == PAUSE)
+                                        botao = STEP;
+                                    break;
                             }
                             break;
                  
@@ -296,8 +325,9 @@ void main(void)
              case ME_INSERIR_CICLO_FILA:
                             fifo_add_ciclo(ciclos);
                             estado = TELA_EXECUTANDO_PASSOS;
+                            botao = PLAY;
                             break;
-         }
+        }
  
         serialIOscan();     
  
@@ -313,40 +343,56 @@ void main(void)
 
             case 2:
                             auxPasso = fifo_lerPos(getIndicePassos());
-                            meAtuadores = 3;
+                           
+                            if(botao == PLAY || botao == STEP || botao == STOP)
+                                meAtuadores = 3;
                             break;
 
-            case 3:       
+            case 3:
                             if(auxPasso & 0x80)
+                            {
                                 setT1( (auxPasso & 0x7F) * 1000 );
+                                meAtuadores = 4;
+                            }
                             else
-                                set_passo(auxPasso, vetorOut);                                        
-                            meAtuadores = 4;                       
+                            {
+                                set_passo(auxPasso, vetorOut);
+                                meAtuadores = 5;
+                            }
                             break;
 
             case 4:
-                            if(auxPasso & 0x80)
-                                meAtuadores = 5;
-                            else if( ler_sensor(auxPasso, vetorIn) )                       
-                                meAtuadores = 6;                                                                   
-                            break; 
-                    
-            case 5:
                             if(!statusT1())
                                 meAtuadores = 6;
                             break;
+
+            case 5:
+                            if(ler_sensor(auxPasso, vetorIn))
+                                meAtuadores = 6;
+                            break; 
                     
             case 6:
+                            if(botao == STEP)
+                            {
+                                botao = PAUSE;
+                            }
+                            meAtuadores = 7;
+                            
+                            break;
+                            
+            case 7:
                             addIndicePassos();
                             if(getIndicePassos() < fifo_indice())
                                 meAtuadores = 2;
                             else
-                                meAtuadores = 7;                    
+                            {
+                                addContCiclos();
+                                meAtuadores = 8;
+                            }
                             break;
                     
-            case 7:
-                            addContCiclos();
-                            if((getContCiclos() < getCiclos()) || (getCiclos() == 0))
+            case 8:
+                            if((botao != STOP) && ((getContCiclos() < getCiclos()) || (getCiclos() == 0)))
                             {
                                 resetIndicePassos();
                                 meAtuadores = 2;
@@ -355,7 +401,7 @@ void main(void)
                             {
                                 meAtuadores = 0;                        
                             }
-                            break;
+                            break;               
         }
     }
     return;
