@@ -1,8 +1,9 @@
 #include "dispLCD4vias.h"
+#include "fifo.h"
 
 
 #define FIFO_INDICE_INICIO 2
-#define TAM_VETOR 20
+#define TAM_VETOR 62
 
 
 char fila[TAM_VETOR];
@@ -148,6 +149,7 @@ void fifo_delete(void)
         alt_atuador(fila[ind_fila] & ~0x20);
         fila[ind_fila] = 0;
     }
+    fifo_alinharPrint();
 }
 
 void fifo_add(const char passo)
@@ -161,6 +163,7 @@ void fifo_add(const char passo)
             fila[ind_fila] = 0;
         }
     }
+    fifo_alinharPrint();
 }
 
 void fifo_add_tempo(const char t)
@@ -174,6 +177,7 @@ void fifo_add_tempo(const char t)
             fila[ind_fila] = 0;
         }
     }
+    fifo_alinharPrint();
 }
 
 void fifo_add_ciclo(unsigned int ciclos)
@@ -189,26 +193,31 @@ char fifo_indice(void)
     return ( ind_fila );
 }
 
+char fifo_disponivel( void )
+{
+    return( ind_fila < TAM_VETOR );
+}
+
 char fifo_tam(void)
 {
     return( TAM_VETOR );
 }
 
-
 void fifo_indicePrint_inc( void )
 {
-    ++ind_print;
-    if( ind_print < TAM_VETOR )
+    if( ind_print < TAM_VETOR-1 )
     {
-        if( !fila[ind_print] )
-            ind_print--;
+        if( ind_print < ind_fila-1 )
+            ind_print++;
+        else
+            ind_print = ind_fila-1;
     }
     else
         ind_print = TAM_VETOR-1;
 }
 void fifo_indicePrint_dec( void )
 {
-    if( ind_print > 2 )
+    if( ind_print > FIFO_INDICE_INICIO )
         ind_print--;
 }
 
@@ -254,10 +263,8 @@ void fifo_print(void)
                 dispLCD_dataReg(atraso + '0');
                 ++i;
                 
-//                dispLCD_num(0, i, comando & ~0x80, 1);
                 dispLCD_dataReg('s');
                 ++i;
-                //i+= tam_num(comando & ~0x80)+1;            
             }
             else
             {
@@ -285,13 +292,6 @@ void fifo_print(void)
     while( i <= LCD_COLS );
 }
 
-
-
-
-/* 
- *              Rotinas de impressão da fifo
- */
-
 void dignum_conc(char dig, unsigned int * ptrNum )
 {        
     *ptrNum = (*ptrNum * 10) + (dig - '0');        
@@ -314,49 +314,58 @@ unsigned char dignum_tam(int num)
     return ( tam );
 }
 
+void fifo_alinharPrint( void )
+{
+    unsigned char i;
+    unsigned char aux;
+    unsigned char cont = 0;
+    
+    for( i=ind_fila-1; i>=FIFO_INDICE_INICIO; i-- )
+    {
+        aux = fila[i];
+        if( aux & 0x80 ) // Máscara para tempo
+        {
+            cont += dignum_tam( aux & 0x7F )+1;
+        }
+        else if( aux >= 'A' && aux <= 'z' )
+        {
+            cont += 2;
+        }
+        
+        if( cont > LCD_COLS )
+        {
+            break;
+        }
+        else
+            ind_print = i;
+    }
+}
 
+char posAtual(char ind)
+{
+    char passo = 0;
+    
+    passo = fifo_lerPos( getIndicePassos() + ind );
+    return(passo);
+}
 
-
-
-
-//void reset_fila(void)
-//{        
-//    fila[0] = ' ';
-//    fila[1] = 0;
-//    ind_fila = 0;    
-//}
-//char ler_posfila(char i)
-//{
-//    return ( fila[i] );
-//}
-//void mod_fila(char pos, char tecla)
-//{
-//    fila[pos] = tecla;
-//}
-//
-//void retirar_fila(void)
-//{
-//    if(ind_fila)
-//    {
-//        ind_fila--;
-//        alt_atuador(fila[ind_fila] & ~0x20);
-//        fila[ind_fila] = 0;
-//    }
-//}
-//void inserir_fila(const char passo)
-//{
-//    if(ind_fila < TAM_VETOR)
-//    {    
-//        if(passo)
-//        {
-//            fila[ind_fila] = passo;
-//            ind_fila++;
-//            fila[ind_fila] = 0;
-//        }
-//    }
-//}
-//char pos_fila(void)
-//{
-//    return ( ind_fila );
-//}
+void printExec (char col, char ind)
+{
+    char passo = posAtual( ind );
+    
+    if(passo & 0x80)
+    {
+        passo &= 0x7F;
+        if( dignum_tam( (int) passo ) == 3 )
+            col-=1;
+        dispLCD_num(0, col, (int)passo, dignum_tam( (int)passo) );
+        dispLCD_dataReg('s');
+    }   
+    if( (passo >= 'A') && (passo <= 'z') )
+    {
+        dispLCD_lincol(0, col);
+        dispLCD_dataReg( passo & ~0x20 );                                
+        dispLCD_dataReg( passo & 0x20 ? '-': '+' );
+    }
+}
 
