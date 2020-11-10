@@ -40,6 +40,8 @@ void decIndicePassos(void);
 unsigned char getIndicePassos(void);
 void resetIndicePassos(void);
 void fifo_alinharPrint( void );
+char posAtual(char ind);
+void printExec (char col, char ind);
 
 
 #endif	/* FIFO_H */
