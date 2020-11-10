@@ -353,6 +353,14 @@ void printExec (char col, char ind)
 {
     char passo = posAtual( ind );
     
+    if(passo & 0x80)
+    {
+        passo &= 0x7F;
+        if( dignum_tam( (int) passo ) == 3 )
+            col-=1;
+        dispLCD_num(0, col, (int)passo, dignum_tam( (int)passo) );
+        dispLCD_dataReg('s');
+    }   
     if( (passo >= 'A') && (passo <= 'z') )
     {
         dispLCD_lincol(0, col);
@@ -360,3 +368,4 @@ void printExec (char col, char ind)
         dispLCD_dataReg( passo & 0x20 ? '-': '+' );
     }
 }
+

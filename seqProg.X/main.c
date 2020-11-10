@@ -203,9 +203,7 @@ void main(void)
                             break;
                     
              case TELA_EXECUTANDO_PASSOS:
-                            dispLCD_clr();
-                            //dispLCD(0, 0, "   Executando   ");
-                            //dispLCD(1, 0, "     passos     ");
+                            dispLCD_clr();                            
                             estado = ME_ESPERA_EXECUCAO;
                             meAtuadores = ME_ATUADORES_START;
                             break;
@@ -214,27 +212,14 @@ void main(void)
                             if (meAtuadores == 2)
                             {
                                 dispLCD(0, 0, "     [    ]     ");
-                                printExec(2, -1);
+                                printExec(1, -1);
                                 printExec(7, 0);
-                                printExec(12, 1);
-//                                if( (posAtual() >= 'A') && (posAtual() <= 'z') )
-//                                {
-//                                    dispLCD_lincol(0, 7);
-//                                    dispLCD_dataReg( posAtual() & ~0x20 );                                
-//                                    dispLCD_dataReg( posAtual() & 0x20 ? '-': '+' );
-//                                }
-//                                if( (posAnterior() >= 'A') && (posAnterior() <= 'z') )
-//                                {
-//                                    dispLCD_lincol(0, 2);
-//                                    dispLCD_dataReg( posAnterior() & ~0x20 );
-//                                    dispLCD_dataReg( posAnterior() & 0x20 ? '-': '+' );
-//                                }
-//                                if( (posFuturo() >= 'A') && (posFuturo() <= 'z') )
-//                                {
-//                                    dispLCD_lincol(0, 12);
-//                                    dispLCD_dataReg( posFuturo() & ~0x20 );
-//                                    dispLCD_dataReg( posFuturo() & 0x20 ? '-': '+' ); 
-//                                }
+                                printExec(12, 1);  
+                                dispLCD(1, 0, "<  /  > c:      ");
+                                dispLCD_num(1, 4,( fifo_indice() - 2 ), 2);
+                                dispLCD_num(1, 1,( getIndicePassos() - 1 ), 2);
+                                dispLCD_num(1, 11,( getContCiclos() + 1 ), 5);
+                                
                             }
                             if(meAtuadores == 0)
                             {
