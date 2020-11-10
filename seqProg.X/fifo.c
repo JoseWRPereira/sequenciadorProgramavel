@@ -3,7 +3,7 @@
 
 
 #define FIFO_INDICE_INICIO 2
-#define TAM_VETOR 20
+#define TAM_VETOR 62
 
 
 char fila[TAM_VETOR];
@@ -341,3 +341,22 @@ void fifo_alinharPrint( void )
     }
 }
 
+char posAtual(char ind)
+{
+    char passo = 0;
+    
+    passo = fifo_lerPos( getIndicePassos() + ind );
+    return(passo);
+}
+
+void printExec (char col, char ind)
+{
+    char passo = posAtual( ind );
+    
+    if( (passo >= 'A') && (passo <= 'z') )
+    {
+        dispLCD_lincol(0, col);
+        dispLCD_dataReg( passo & ~0x20 );                                
+        dispLCD_dataReg( passo & 0x20 ? '-': '+' );
+    }
+}
