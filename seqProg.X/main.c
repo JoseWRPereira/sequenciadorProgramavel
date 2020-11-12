@@ -203,22 +203,22 @@ void main(void)
                             break;
                     
              case TELA_EXECUTANDO_PASSOS:
-                            dispLCD_clr();                            
+                            //dispLCD_clr();                            
                             estado = ME_ESPERA_EXECUCAO;
                             meAtuadores = ME_ATUADORES_START;
                             break;
                  
              case ME_ESPERA_EXECUCAO:
-                            if (meAtuadores == 2)
-                            {
+                            if( meAtuadores == 3 && botao != PAUSE )
+                            {                                
                                 dispLCD(0, 0, "     [    ]     ");
                                 printExec(1, -1);
                                 printExec(7, 0);
                                 printExec(12, 1);  
                                 dispLCD(1, 0, "<  /  > c:      ");
                                 dispLCD_num(1, 4,( fifo_indice() - 2 ), 2);
-                                dispLCD_num(1, 1,( getIndicePassos() - 1 ), 2);
-                                dispLCD_num(1, 11,( getContCiclos() + 1 ), 5);
+                                dispLCD_num(1, 1, ( getIndicePassos() - 1 ), 2);                                         
+                                dispLCD_num(1, 11, ( getContCiclos() + 1 ), 5);                                            
                                 
                             }
                             if(meAtuadores == 0)
