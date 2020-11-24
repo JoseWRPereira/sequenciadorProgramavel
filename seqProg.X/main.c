@@ -318,6 +318,12 @@ void main(void)
                                }
                             switch(tecla)
                                {
+                                   case 'A':
+                                   case 'B':
+                                   case 'C':
+                                   case 'D':
+                                       estado = TELA_PRINTFILA;
+                                       break;
                                    case '#':
                                        estado = ME_INSERIR_CICLO_FILA;
                                        break;
