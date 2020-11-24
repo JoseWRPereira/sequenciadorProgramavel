@@ -1,6 +1,6 @@
 #include <xc.h>
 
-unsigned int t1cont = 0;
+unsigned long int t1cont = 0;
 
 void intt1_1ms( void )
 {
@@ -28,14 +28,14 @@ void timer1_init(void)
     //intt1_1ms();
 }
 
-void setT1( int c )
+void setT1( unsigned long int c )
 {
     t1cont = c;
     T1CONbits.TMR1ON = 1;
 }
 
 
-int statusT1( void )
+unsigned long int statusT1( void )
 {
     return( t1cont );
 }

@@ -22,6 +22,7 @@ void fifo_delete(void);
 void fifo_add(const char passo);
 void fifo_add_tempo(const char t);
 char fifo_indice(void);
+char fifo_disponivel( void );
 char fifo_tam(void);
 void fifo_indicePrint_inc( void );
 void fifo_indicePrint_dec( void );
@@ -38,6 +39,9 @@ void addIndicePassos(void);
 void decIndicePassos(void);
 unsigned char getIndicePassos(void);
 void resetIndicePassos(void);
+void fifo_alinharPrint( void );
+char posAtual(char ind);
+void printExec (char col, char ind);
 
 
 #endif	/* FIFO_H */
