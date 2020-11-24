@@ -253,16 +253,22 @@ void fifo_print(void)
                     dispLCD_dataReg('1'); 
                     ++i;
                     atraso %= 100;
+                    if(atraso < 10)
+                    {    
+                        dispLCD_dataReg('0');
+                        ++i;
+                    }    
                 }
                 if( atraso >= 10 )
-                {
-                    dispLCD_dataReg(atraso/10 + '0');
+                {                    
+                    dispLCD_dataReg(atraso/10 + '0');                    
                     ++i;
                     atraso %= 10;
                 }
+                
                 dispLCD_dataReg(atraso + '0');
                 ++i;
-                
+                    
                 dispLCD_dataReg('s');
                 ++i;
             }
@@ -361,11 +367,10 @@ void printExec (char col, char ind)
         dispLCD_num(0, col, (int)passo, dignum_tam( (int)passo) );
         dispLCD_dataReg('s');
     }   
-    if( (passo >= 'A') && (passo <= 'z') )
+    else if( (passo >= 'A') && (passo <= 'z') )
     {
         dispLCD_lincol(0, col);
         dispLCD_dataReg( passo & ~0x20 );                                
         dispLCD_dataReg( passo & 0x20 ? '-': '+' );
     }
 }
-

@@ -13,8 +13,8 @@
 
 void intt1_1ms( void );
 void timer1_init(void);
-void setT1( int c );
-int statusT1( void );
+void setT1( unsigned long int c );
+unsigned long int statusT1( void );
 void stopTimer(void);
 
 
