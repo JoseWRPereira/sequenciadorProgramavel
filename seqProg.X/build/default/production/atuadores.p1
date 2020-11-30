@@ -1,0 +1,173 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"53 atuadores.c
+[; ;atuadores.c: 53: void set_passo(char passo, char* ptr)
+[v _set_passo `(v ~T0 @X0 1 ef2`uc`*uc ]
+"54
+[; ;atuadores.c: 54: {
+{
+[e :U _set_passo ]
+"53
+[; ;atuadores.c: 53: void set_passo(char passo, char* ptr)
+[v _passo `uc ~T0 @X0 1 r1 ]
+[v _ptr `*uc ~T0 @X0 1 r2 ]
+"54
+[; ;atuadores.c: 54: {
+[f ]
+"55
+[; ;atuadores.c: 55:     switch (passo)
+[e $U 3  ]
+"56
+[; ;atuadores.c: 56:     {
+{
+"57
+[; ;atuadores.c: 57:         case 'A': *ptr |= 0x01; break;
+[e :U 4 ]
+[e =| *U _ptr -> -> 1 `i `uc ]
+[e $U 2  ]
+"58
+[; ;atuadores.c: 58:         case 'a': *ptr &= ~0x01; break;
+[e :U 5 ]
+[e =& *U _ptr -> ~ -> 1 `i `uc ]
+[e $U 2  ]
+"59
+[; ;atuadores.c: 59:         case 'B': *ptr |= 0x02; break;
+[e :U 6 ]
+[e =| *U _ptr -> -> 2 `i `uc ]
+[e $U 2  ]
+"60
+[; ;atuadores.c: 60:         case 'b': *ptr &= ~0x02; break;
+[e :U 7 ]
+[e =& *U _ptr -> ~ -> 2 `i `uc ]
+[e $U 2  ]
+"61
+[; ;atuadores.c: 61:         case 'C': *ptr |= 0x04; break;
+[e :U 8 ]
+[e =| *U _ptr -> -> 4 `i `uc ]
+[e $U 2  ]
+"62
+[; ;atuadores.c: 62:         case 'c': *ptr &= ~0x04; break;
+[e :U 9 ]
+[e =& *U _ptr -> ~ -> 4 `i `uc ]
+[e $U 2  ]
+"63
+[; ;atuadores.c: 63:         case 'D': *ptr |= 0x08; break;
+[e :U 10 ]
+[e =| *U _ptr -> -> 8 `i `uc ]
+[e $U 2  ]
+"64
+[; ;atuadores.c: 64:         case 'd': *ptr &= ~0x08; break;
+[e :U 11 ]
+[e =& *U _ptr -> ~ -> 8 `i `uc ]
+[e $U 2  ]
+"65
+[; ;atuadores.c: 65:     }
+}
+[e $U 2  ]
+[e :U 3 ]
+[e [\ -> _passo `i , $ -> -> 65 `ui `i 4
+ , $ -> -> 97 `ui `i 5
+ , $ -> -> 66 `ui `i 6
+ , $ -> -> 98 `ui `i 7
+ , $ -> -> 67 `ui `i 8
+ , $ -> -> 99 `ui `i 9
+ , $ -> -> 68 `ui `i 10
+ , $ -> -> 100 `ui `i 11
+ 2 ]
+[e :U 2 ]
+"66
+[; ;atuadores.c: 66: }
+[e :UE 1 ]
+}
+"68
+[; ;atuadores.c: 68: char ler_sensor(char passo, char* ptr)
+[v _ler_sensor `(uc ~T0 @X0 1 ef2`uc`*uc ]
+"69
+[; ;atuadores.c: 69: {
+{
+[e :U _ler_sensor ]
+"68
+[; ;atuadores.c: 68: char ler_sensor(char passo, char* ptr)
+[v _passo `uc ~T0 @X0 1 r1 ]
+[v _ptr `*uc ~T0 @X0 1 r2 ]
+"69
+[; ;atuadores.c: 69: {
+[f ]
+"70
+[; ;atuadores.c: 70:     switch (passo)
+[e $U 14  ]
+"71
+[; ;atuadores.c: 71:     {
+{
+"72
+[; ;atuadores.c: 72:         case 'A': return(*ptr & 0x02); break;
+[e :U 15 ]
+[e ) -> & -> *U _ptr `i -> 2 `i `uc ]
+[e $UE 12  ]
+[e $U 13  ]
+"73
+[; ;atuadores.c: 73:         case 'a': return(*ptr & 0x01); break;
+[e :U 16 ]
+[e ) -> & -> *U _ptr `i -> 1 `i `uc ]
+[e $UE 12  ]
+[e $U 13  ]
+"74
+[; ;atuadores.c: 74:         case 'B': return(*ptr & 0x08); break;
+[e :U 17 ]
+[e ) -> & -> *U _ptr `i -> 8 `i `uc ]
+[e $UE 12  ]
+[e $U 13  ]
+"75
+[; ;atuadores.c: 75:         case 'b': return(*ptr & 0x04); break;
+[e :U 18 ]
+[e ) -> & -> *U _ptr `i -> 4 `i `uc ]
+[e $UE 12  ]
+[e $U 13  ]
+"76
+[; ;atuadores.c: 76:         case 'C': return(*ptr & 0x20); break;
+[e :U 19 ]
+[e ) -> & -> *U _ptr `i -> 32 `i `uc ]
+[e $UE 12  ]
+[e $U 13  ]
+"77
+[; ;atuadores.c: 77:         case 'c': return(*ptr & 0x10); break;
+[e :U 20 ]
+[e ) -> & -> *U _ptr `i -> 16 `i `uc ]
+[e $UE 12  ]
+[e $U 13  ]
+"78
+[; ;atuadores.c: 78:         case 'D': return(*ptr & 0x80); break;
+[e :U 21 ]
+[e ) -> & -> *U _ptr `i -> 128 `i `uc ]
+[e $UE 12  ]
+[e $U 13  ]
+"79
+[; ;atuadores.c: 79:         case 'd': return(*ptr & 0x40); break;
+[e :U 22 ]
+[e ) -> & -> *U _ptr `i -> 64 `i `uc ]
+[e $UE 12  ]
+[e $U 13  ]
+"80
+[; ;atuadores.c: 80:         default: return( 0 ); break;
+[e :U 23 ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 12  ]
+[e $U 13  ]
+"81
+[; ;atuadores.c: 81:     }
+}
+[e $U 13  ]
+[e :U 14 ]
+[e [\ -> _passo `i , $ -> -> 65 `ui `i 15
+ , $ -> -> 97 `ui `i 16
+ , $ -> -> 66 `ui `i 17
+ , $ -> -> 98 `ui `i 18
+ , $ -> -> 67 `ui `i 19
+ , $ -> -> 99 `ui `i 20
+ , $ -> -> 68 `ui `i 21
+ , $ -> -> 100 `ui `i 22
+ 23 ]
+[e :U 13 ]
+"83
+[; ;atuadores.c: 83: }
+[e :UE 12 ]
+}
