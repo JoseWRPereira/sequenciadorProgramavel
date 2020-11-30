@@ -9,6 +9,11 @@
       <itemPath>dispLCD4vias.h</itemPath>
       <itemPath>fifo.h</itemPath>
       <itemPath>teclado.h</itemPath>
+      <itemPath>atuadores.h</itemPath>
+      <itemPath>estados.h</itemPath>
+      <itemPath>hist.h</itemPath>
+      <itemPath>serialIO.h</itemPath>
+      <itemPath>timer1.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -22,6 +27,9 @@
       <itemPath>fifo.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>teclado.c</itemPath>
+      <itemPath>atuadores.c</itemPath>
+      <itemPath>serialIO.c</itemPath>
+      <itemPath>timer1.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

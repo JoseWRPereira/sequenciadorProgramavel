@@ -1,0 +1,785 @@
+[p LITE_MODE AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F887 ]
+[d frameptr 6 ]
+"53 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\atuadores.c
+[v _set_passo set_passo `(v  1 e 1 0 ]
+"68
+[v _ler_sensor ler_sensor `(uc  1 e 1 0 ]
+"5 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"5 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"5 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"10 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"10 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\delay.c
+[v _delay delay `(v  1 e 1 0 ]
+"97 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\dispLCD4vias.c
+[v _dispLCD_instReg dispLCD_instReg `(v  1 e 1 0 ]
+"130
+[v _dispLCD_dataReg dispLCD_dataReg `(v  1 e 1 0 ]
+"146
+[v _dispLCD_lincol dispLCD_lincol `(v  1 e 1 0 ]
+"152
+[v _dispLCD_init dispLCD_init `(v  1 e 1 0 ]
+"173
+[v _dispLCD dispLCD `(v  1 e 1 0 ]
+"187
+[v _dispLCD_num dispLCD_num `(v  1 e 1 0 ]
+"230
+[v _dispLCD_clr dispLCD_clr `(v  1 e 1 0 ]
+"17 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\fifo.c
+[v _addIndicePassos addIndicePassos `(v  1 e 1 0 ]
+"29
+[v _getIndicePassos getIndicePassos `(uc  1 e 1 0 ]
+"34
+[v _resetIndicePassos resetIndicePassos `(v  1 e 1 0 ]
+"39
+[v _getCiclos getCiclos `(ui  1 e 2 0 ]
+"47
+[v _getContCiclos getContCiclos `(ui  1 e 2 0 ]
+"52
+[v _resetContCiclos resetContCiclos `(v  1 e 1 0 ]
+"57
+[v _addContCiclos addContCiclos `(v  1 e 1 0 ]
+"80
+[v _ler_atuador ler_atuador `(uc  1 e 1 0 ]
+"92
+[v _alt_atuador alt_atuador `(v  1 e 1 0 ]
+"103
+[v _init_atuadores init_atuadores `(v  1 e 1 0 ]
+"128
+[v _fifo_lerPos fifo_lerPos `(uc  1 e 1 0 ]
+"143
+[v _fifo_delete fifo_delete `(v  1 e 1 0 ]
+"155
+[v _fifo_add fifo_add `(v  1 e 1 0 ]
+"169
+[v _fifo_add_tempo fifo_add_tempo `(v  1 e 1 0 ]
+"183
+[v _fifo_add_ciclo fifo_add_ciclo `(v  1 e 1 0 ]
+"191
+[v _fifo_indice fifo_indice `(uc  1 e 1 0 ]
+"196
+[v _fifo_disponivel fifo_disponivel `(uc  1 e 1 0 ]
+"201
+[v _fifo_tam fifo_tam `(uc  1 e 1 0 ]
+"206
+[v _fifo_indicePrint_inc fifo_indicePrint_inc `(v  1 e 1 0 ]
+"218
+[v _fifo_indicePrint_dec fifo_indicePrint_dec `(v  1 e 1 0 ]
+"226
+[v _fifo_print fifo_print `(v  1 e 1 0 ]
+"301
+[v _dignum_conc dignum_conc `(v  1 e 1 0 ]
+"306
+[v _dignum_apagar dignum_apagar `(v  1 e 1 0 ]
+"311
+[v _dignum_tam dignum_tam `(uc  1 e 1 0 ]
+"323
+[v _fifo_alinharPrint fifo_alinharPrint `(v  1 e 1 0 ]
+"350
+[v _posAtual posAtual `(uc  1 e 1 0 ]
+"358
+[v _printExec printExec `(v  1 e 1 0 ]
+"32 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\main.c
+[v _irq irq `II(v  1 e 1 0 ]
+"45
+[v _main main `(v  1 e 1 0 ]
+"45 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\serialIO.c
+[v _serialIOload serialIOload `(v  1 e 1 0 ]
+"50
+[v _serialIObyteShift serialIObyteShift `(uc  1 e 1 0 ]
+"76
+[v _serialIOscan serialIOscan `(v  1 e 1 0 ]
+"89
+[v _initSerialIO initSerialIO `(v  1 e 1 0 ]
+"29 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\teclado.c
+[v _teclado_init teclado_init `(v  1 e 1 0 ]
+"55
+[v _teclado_scan teclado_scan `(uc  1 e 1 0 ]
+"92
+[v _teclado_borda teclado_borda `(uc  1 e 1 0 ]
+"5 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\timer1.c
+[v _intt1_1ms intt1_1ms `(v  1 e 1 0 ]
+"16
+[v _timer1_init timer1_init `(v  1 e 1 0 ]
+"31
+[v _setT1 setT1 `(v  1 e 1 0 ]
+"38
+[v _statusT1 statusT1 `(ul  1 e 4 0 ]
+[s S494 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+`uc 1 RA6 1 0 :1:6 
+`uc 1 RA7 1 0 :1:7 
+]
+"183 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f887.h
+[u S503 . 1 `S494 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES503  1 e 1 @5 ]
+"352
+[v _PORTD PORTD `VEuc  1 e 1 @8 ]
+[s S209 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"482
+[s S218 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 TMR0IE 1 0 :1:5 
+]
+[u S223 . 1 `S209 1 . 1 0 `S218 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES223  1 e 1 @11 ]
+[s S241 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSPIF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+]
+"553
+[u S249 . 1 `S241 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES249  1 e 1 @12 ]
+"657
+[v _TMR1L TMR1L `VEuc  1 e 1 @14 ]
+"664
+[v _TMR1H TMR1H `VEuc  1 e 1 @15 ]
+[s S612 . 1 `uc 1 TMR1ON 1 0 :1:0 
+`uc 1 TMR1CS 1 0 :1:1 
+`uc 1 nT1SYNC 1 0 :1:2 
+`uc 1 T1OSCEN 1 0 :1:3 
+`uc 1 T1CKPS 1 0 :2:4 
+`uc 1 TMR1GE 1 0 :1:6 
+`uc 1 T1GINV 1 0 :1:7 
+]
+"700
+[s S620 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T1INSYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 T1CKPS0 1 0 :1:4 
+`uc 1 T1CKPS1 1 0 :1:5 
+`uc 1 . 1 0 :1:6 
+`uc 1 T1GIV 1 0 :1:7 
+]
+[s S628 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T1SYNC 1 0 :1:2 
+]
+[u S631 . 1 `S612 1 . 1 0 `S620 1 . 1 0 `S628 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES631  1 e 1 @16 ]
+[s S536 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+`uc 1 TRISA6 1 0 :1:6 
+`uc 1 TRISA7 1 0 :1:7 
+]
+"1433
+[u S545 . 1 `S536 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES545  1 e 1 @133 ]
+[s S40 . 1 `uc 1 TRISB0 1 0 :1:0 
+`uc 1 TRISB1 1 0 :1:1 
+`uc 1 TRISB2 1 0 :1:2 
+`uc 1 TRISB3 1 0 :1:3 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"1495
+[u S49 . 1 `S40 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES49  1 e 1 @134 ]
+"1602
+[v _TRISD TRISD `VEuc  1 e 1 @136 ]
+[s S260 . 1 `uc 1 TMR1IE 1 0 :1:0 
+`uc 1 TMR2IE 1 0 :1:1 
+`uc 1 CCP1IE 1 0 :1:2 
+`uc 1 SSPIE 1 0 :1:3 
+`uc 1 TXIE 1 0 :1:4 
+`uc 1 RCIE 1 0 :1:5 
+`uc 1 ADIE 1 0 :1:6 
+]
+"1718
+[u S268 . 1 `S260 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES268  1 e 1 @140 ]
+[s S515 . 1 `uc 1 ANS0 1 0 :1:0 
+`uc 1 ANS1 1 0 :1:1 
+`uc 1 ANS2 1 0 :1:2 
+`uc 1 ANS3 1 0 :1:3 
+`uc 1 ANS4 1 0 :1:4 
+`uc 1 ANS5 1 0 :1:5 
+`uc 1 ANS6 1 0 :1:6 
+`uc 1 ANS7 1 0 :1:7 
+]
+"3404
+[u S524 . 1 `S515 1 . 1 0 ]
+[v _ANSELbits ANSELbits `VES524  1 e 1 @392 ]
+"3449
+[v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
+[s S30 . 1 `uc 1 BUS 1 0 :4:0 
+`uc 1 RS 1 0 :1:4 
+`uc 1 EN 1 0 :1:5 
+`uc 1 . 1 0 :2:6 
+]
+"46 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\dispLCD4vias.c
+[u S35 . 1 `S30 1 . 1 0 ]
+[v _LCDbits LCDbits `VES35  1 e 1 @6 ]
+"9 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\fifo.c
+[v _fila fila `[62]uc  1 e 62 0 ]
+"10
+[v _ind_fila ind_fila `uc  1 e 1 0 ]
+"11
+[v _ind_print ind_print `uc  1 e 1 0 ]
+"13
+[v _cont_ciclos cont_ciclos `ui  1 e 2 0 ]
+"14
+[v _indice_passos indice_passos `uc  1 e 1 0 ]
+[s S106 . 1 `uc 1 A 1 0 :1:0 
+`uc 1 B 1 0 :1:1 
+`uc 1 C 1 0 :1:2 
+`uc 1 D 1 0 :1:3 
+`uc 1 . 1 0 :4:4 
+]
+"72
+[u S112 . 1 `S106 1 . 1 0 ]
+[v _atuador atuador `S112  1 e 1 0 ]
+"23 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\serialIO.c
+[v _ptrSerialIn ptrSerialIn `*.4uc  1 e 1 0 ]
+"24
+[v _ptrSerialOut ptrSerialOut `*.4uc  1 e 1 0 ]
+"25
+[v _lenSerialIO lenSerialIO `uc  1 e 1 0 ]
+[s S486 . 1 `uc 1 OUT 1 0 :1:0 
+`uc 1 IN 1 0 :1:1 
+`uc 1 CLK 1 0 :1:2 
+`uc 1 SHLD 1 0 :1:3 
+`uc 1 . 1 0 :4:4 
+]
+"41
+[u S492 . 1 `S486 1 . 1 0 ]
+[v _SERIALIO SERIALIO `VES492  1 e 1 @5 ]
+"50 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\teclado.c
+[v _teclas teclas `[4][4]uc  1 e 16 0 ]
+"91
+[v _teclaAnterior teclaAnterior `uc  1 e 1 0 ]
+"3 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\timer1.c
+[v _t1cont t1cont `ul  1 e 4 0 ]
+"45 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"94
+[v main@j_419 j `uc  1 a 1 38 ]
+"85
+[v main@j j `uc  1 a 1 36 ]
+"92
+[v main@i_418 i `uc  1 a 1 37 ]
+"83
+[v main@i i `uc  1 a 1 35 ]
+"55
+[v main@lin2 lin2 `[17]uc  1 a 17 0 ]
+"64
+[v main@ciclos ciclos `ui  1 a 2 44 ]
+"63
+[v main@num num `ui  1 a 2 42 ]
+"52
+[v main@tecla tecla `uc  1 a 1 49 ]
+"53
+[v main@estado estado `uc  1 a 1 48 ]
+"65
+[v main@botao botao `uc  1 a 1 47 ]
+"58
+[v main@vetorOut vetorOut `[1]uc  1 a 1 46 ]
+"60
+[v main@meAtuadores meAtuadores `uc  1 a 1 41 ]
+"57
+[v main@vetorIn vetorIn `[1]uc  1 a 1 40 ]
+"61
+[v main@auxPasso auxPasso `uc  1 a 1 39 ]
+"76
+[v main@next next `uc  1 a 1 24 ]
+"75
+[v main@meAtAux meAtAux `uc  1 a 1 23 ]
+"74
+[v main@pauseRight pauseRight `uc  1 a 1 22 ]
+"73
+[v main@pauseLeft pauseLeft `uc  1 a 1 21 ]
+"72
+[v main@boolStop boolStop `uc  1 a 1 20 ]
+"70
+[v main@boolPause boolPause `uc  1 a 1 19 ]
+"62
+[v main@aux aux `uc  1 a 1 18 ]
+"56
+[v main@contPassos contPassos `uc  1 a 1 17 ]
+"54
+[v main@F1358 F1358 `[17]uc  1 s 17 F1358 ]
+"56
+[v main@F1361 F1361 `[1]uc  1 s 1 F1361 ]
+"57
+[v main@F1363 F1363 `[1]uc  1 s 1 F1363 ]
+"428
+} 0
+"16 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\timer1.c
+[v _timer1_init timer1_init `(v  1 e 1 0 ]
+{
+"29
+} 0
+"29 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\teclado.c
+[v _teclado_init teclado_init `(v  1 e 1 0 ]
+{
+"34
+} 0
+"92
+[v _teclado_borda teclado_borda `(uc  1 e 1 0 ]
+{
+"94
+[v teclado_borda@tecla tecla `uc  1 a 1 9 ]
+"95
+[v teclado_borda@aux aux `uc  1 a 1 8 ]
+"105
+} 0
+"55
+[v _teclado_scan teclado_scan `(uc  1 e 1 0 ]
+{
+"71
+[v teclado_scan@c c `uc  1 a 1 6 ]
+[v teclado_scan@l l `uc  1 a 1 5 ]
+"57
+[v teclado_scan@tecla tecla `uc  1 a 1 4 ]
+"89
+} 0
+"38 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\timer1.c
+[v _statusT1 statusT1 `(ul  1 e 4 0 ]
+{
+"41
+} 0
+"53 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\atuadores.c
+[v _set_passo set_passo `(v  1 e 1 0 ]
+{
+[v set_passo@passo passo `uc  1 a 1 wreg ]
+[v set_passo@passo passo `uc  1 a 1 wreg ]
+[v set_passo@ptr ptr `*.4uc  1 p 1 0 ]
+[v set_passo@passo passo `uc  1 a 1 3 ]
+"66
+} 0
+"31 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\timer1.c
+[v _setT1 setT1 `(v  1 e 1 0 ]
+{
+[v setT1@c c `ul  1 p 4 13 ]
+"35
+} 0
+"76 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\serialIO.c
+[v _serialIOscan serialIOscan `(v  1 e 1 0 ]
+{
+"78
+[v serialIOscan@i i `uc  1 a 1 8 ]
+[v serialIOscan@j j `uc  1 a 1 7 ]
+"86
+} 0
+"45
+[v _serialIOload serialIOload `(v  1 e 1 0 ]
+{
+"49
+} 0
+"50
+[v _serialIObyteShift serialIObyteShift `(uc  1 e 1 0 ]
+{
+[v serialIObyteShift@dataIn dataIn `uc  1 a 1 wreg ]
+"52
+[v serialIObyteShift@dataBit dataBit `uc  1 a 1 3 ]
+"53
+[v serialIObyteShift@dataOut dataOut `uc  1 a 1 2 ]
+"50
+[v serialIObyteShift@dataIn dataIn `uc  1 a 1 wreg ]
+"55
+[v serialIObyteShift@dataIn dataIn `uc  1 a 1 1 ]
+"73
+} 0
+"34 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\fifo.c
+[v _resetIndicePassos resetIndicePassos `(v  1 e 1 0 ]
+{
+"37
+} 0
+"52
+[v _resetContCiclos resetContCiclos `(v  1 e 1 0 ]
+{
+"55
+} 0
+"358
+[v _printExec printExec `(v  1 e 1 0 ]
+{
+[v printExec@col col `uc  1 a 1 wreg ]
+"360
+[v printExec@passo passo `uc  1 a 1 35 ]
+"358
+[v printExec@col col `uc  1 a 1 wreg ]
+[v printExec@ind ind `uc  1 p 1 25 ]
+"360
+[v printExec@col col `uc  1 a 1 34 ]
+"376
+} 0
+"350
+[v _posAtual posAtual `(uc  1 e 1 0 ]
+{
+[v posAtual@ind ind `uc  1 a 1 wreg ]
+"352
+[v posAtual@passo passo `uc  1 a 1 3 ]
+"350
+[v posAtual@ind ind `uc  1 a 1 wreg ]
+"352
+[v posAtual@ind ind `uc  1 a 1 2 ]
+"356
+} 0
+"29
+[v _getIndicePassos getIndicePassos `(uc  1 e 1 0 ]
+{
+"32
+} 0
+"128
+[v _fifo_lerPos fifo_lerPos `(uc  1 e 1 0 ]
+{
+[v fifo_lerPos@i i `uc  1 a 1 wreg ]
+[v fifo_lerPos@i i `uc  1 a 1 wreg ]
+"130
+[v fifo_lerPos@i i `uc  1 a 1 0 ]
+"131
+} 0
+"187 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\dispLCD4vias.c
+[v _dispLCD_num dispLCD_num `(v  1 e 1 0 ]
+{
+[v dispLCD_num@lin lin `uc  1 a 1 wreg ]
+"190
+[v dispLCD_num@div div `i  1 a 2 23 ]
+"192
+[v dispLCD_num@sinal sinal `uc  1 a 1 22 ]
+"191
+[v dispLCD_num@size size `uc  1 a 1 21 ]
+"187
+[v dispLCD_num@lin lin `uc  1 a 1 wreg ]
+[v dispLCD_num@col col `uc  1 p 1 13 ]
+"188
+[v dispLCD_num@num num `i  1 p 2 14 ]
+[v dispLCD_num@tam tam `uc  1 p 1 16 ]
+"194
+[v dispLCD_num@lin lin `uc  1 a 1 20 ]
+"227
+} 0
+"68 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\atuadores.c
+[v _ler_sensor ler_sensor `(uc  1 e 1 0 ]
+{
+[v ler_sensor@passo passo `uc  1 a 1 wreg ]
+[v ler_sensor@passo passo `uc  1 a 1 wreg ]
+[v ler_sensor@ptr ptr `*.4uc  1 p 1 0 ]
+[v ler_sensor@passo passo `uc  1 a 1 3 ]
+"83
+} 0
+"80 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\fifo.c
+[v _ler_atuador ler_atuador `(uc  1 e 1 0 ]
+{
+[v ler_atuador@tecla tecla `uc  1 a 1 wreg ]
+[v ler_atuador@tecla tecla `uc  1 a 1 wreg ]
+[v ler_atuador@tecla tecla `uc  1 a 1 2 ]
+"90
+} 0
+"103
+[v _init_atuadores init_atuadores `(v  1 e 1 0 ]
+{
+"109
+} 0
+"89 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\serialIO.c
+[v _initSerialIO initSerialIO `(v  1 e 1 0 ]
+{
+[v initSerialIO@ptrIn ptrIn `*.4uc  1 a 1 wreg ]
+[v initSerialIO@ptrIn ptrIn `*.4uc  1 a 1 wreg ]
+[v initSerialIO@ptrOut ptrOut `*.4uc  1 p 1 0 ]
+[v initSerialIO@length length `uc  1 p 1 1 ]
+"91
+[v initSerialIO@ptrIn ptrIn `*.4uc  1 a 1 3 ]
+"118
+} 0
+"47 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\fifo.c
+[v _getContCiclos getContCiclos `(ui  1 e 2 0 ]
+{
+"50
+} 0
+"39
+[v _getCiclos getCiclos `(ui  1 e 2 0 ]
+{
+"41
+[v getCiclos@aux aux `i  1 a 2 4 ]
+"45
+} 0
+"201
+[v _fifo_tam fifo_tam `(uc  1 e 1 0 ]
+{
+"204
+} 0
+"226
+[v _fifo_print fifo_print `(v  1 e 1 0 ]
+{
+"230
+[v fifo_print@atraso atraso `uc  1 a 1 18 ]
+"229
+[v fifo_print@comando comando `uc  1 a 1 17 ]
+"231
+[v fifo_print@i i `uc  1 a 1 16 ]
+"232
+[v fifo_print@indPrint indPrint `uc  1 a 1 15 ]
+"228
+[v fifo_print@completar completar `uc  1 a 1 14 ]
+"299
+} 0
+"5 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+{
+"10
+[v ___awmod@sign sign `uc  1 a 1 6 ]
+[v ___awmod@counter counter `uc  1 a 1 5 ]
+"5
+[v ___awmod@divisor divisor `i  1 p 2 0 ]
+[v ___awmod@dividend dividend `i  1 p 2 2 ]
+"34
+} 0
+"206 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\fifo.c
+[v _fifo_indicePrint_inc fifo_indicePrint_inc `(v  1 e 1 0 ]
+{
+"217
+} 0
+"218
+[v _fifo_indicePrint_dec fifo_indicePrint_dec `(v  1 e 1 0 ]
+{
+"222
+} 0
+"191
+[v _fifo_indice fifo_indice `(uc  1 e 1 0 ]
+{
+"194
+} 0
+"196
+[v _fifo_disponivel fifo_disponivel `(uc  1 e 1 0 ]
+{
+"199
+} 0
+"143
+[v _fifo_delete fifo_delete `(v  1 e 1 0 ]
+{
+"153
+} 0
+"92
+[v _alt_atuador alt_atuador `(v  1 e 1 0 ]
+{
+[v alt_atuador@tecla tecla `uc  1 a 1 wreg ]
+[v alt_atuador@tecla tecla `uc  1 a 1 wreg ]
+[v alt_atuador@tecla tecla `uc  1 a 1 2 ]
+"101
+} 0
+"169
+[v _fifo_add_tempo fifo_add_tempo `(v  1 e 1 0 ]
+{
+[v fifo_add_tempo@t t `DCuc  1 a 1 wreg ]
+[v fifo_add_tempo@t t `DCuc  1 a 1 wreg ]
+"171
+[v fifo_add_tempo@t t `DCuc  1 a 1 20 ]
+"181
+} 0
+"183
+[v _fifo_add_ciclo fifo_add_ciclo `(v  1 e 1 0 ]
+{
+[v fifo_add_ciclo@ciclos ciclos `ui  1 p 2 0 ]
+"187
+} 0
+"155
+[v _fifo_add fifo_add `(v  1 e 1 0 ]
+{
+[v fifo_add@passo passo `DCuc  1 a 1 wreg ]
+[v fifo_add@passo passo `DCuc  1 a 1 wreg ]
+"157
+[v fifo_add@passo passo `DCuc  1 a 1 20 ]
+"167
+} 0
+"323
+[v _fifo_alinharPrint fifo_alinharPrint `(v  1 e 1 0 ]
+{
+"325
+[v fifo_alinharPrint@i i `uc  1 a 1 18 ]
+"326
+[v fifo_alinharPrint@aux aux `uc  1 a 1 17 ]
+"327
+[v fifo_alinharPrint@cont cont `uc  1 a 1 16 ]
+"348
+} 0
+"311
+[v _dignum_tam dignum_tam `(uc  1 e 1 0 ]
+{
+"313
+[v dignum_tam@tam tam `uc  1 a 1 12 ]
+"311
+[v dignum_tam@num num `i  1 p 2 9 ]
+"321
+} 0
+"5 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+{
+"10
+[v ___awdiv@quotient quotient `i  1 a 2 7 ]
+"11
+[v ___awdiv@sign sign `uc  1 a 1 6 ]
+[v ___awdiv@counter counter `uc  1 a 1 5 ]
+"5
+[v ___awdiv@divisor divisor `i  1 p 2 0 ]
+[v ___awdiv@dividend dividend `i  1 p 2 2 ]
+"41
+} 0
+"152 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\dispLCD4vias.c
+[v _dispLCD_init dispLCD_init `(v  1 e 1 0 ]
+{
+"170
+} 0
+"10 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\delay.c
+[v _delay delay `(v  1 e 1 0 ]
+{
+[v delay@t t `ui  1 p 2 0 ]
+"17
+} 0
+"230 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\dispLCD4vias.c
+[v _dispLCD_clr dispLCD_clr `(v  1 e 1 0 ]
+{
+"233
+} 0
+"173
+[v _dispLCD dispLCD `(v  1 e 1 0 ]
+{
+[v dispLCD@lin lin `uc  1 a 1 wreg ]
+"175
+[v dispLCD@pos pos `uc  1 a 1 10 ]
+"173
+[v dispLCD@lin lin `uc  1 a 1 wreg ]
+[v dispLCD@col col `uc  1 p 1 6 ]
+[v dispLCD@str str `*.25DCuc  1 p 2 7 ]
+"175
+[v dispLCD@lin lin `uc  1 a 1 11 ]
+"184
+} 0
+"146
+[v _dispLCD_lincol dispLCD_lincol `(v  1 e 1 0 ]
+{
+[v dispLCD_lincol@lin lin `uc  1 a 1 wreg ]
+[v dispLCD_lincol@lin lin `uc  1 a 1 wreg ]
+[v dispLCD_lincol@col col `uc  1 p 1 3 ]
+"148
+[v dispLCD_lincol@lin lin `uc  1 a 1 5 ]
+"149
+} 0
+"97
+[v _dispLCD_instReg dispLCD_instReg `(v  1 e 1 0 ]
+{
+[v dispLCD_instReg@i i `uc  1 a 1 wreg ]
+[v dispLCD_instReg@i i `uc  1 a 1 wreg ]
+"99
+[v dispLCD_instReg@i i `uc  1 a 1 2 ]
+"127
+} 0
+"130
+[v _dispLCD_dataReg dispLCD_dataReg `(v  1 e 1 0 ]
+{
+[v dispLCD_dataReg@d d `uc  1 a 1 wreg ]
+[v dispLCD_dataReg@d d `uc  1 a 1 wreg ]
+"132
+[v dispLCD_dataReg@d d `uc  1 a 1 1 ]
+"143
+} 0
+"301 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\fifo.c
+[v _dignum_conc dignum_conc `(v  1 e 1 0 ]
+{
+[v dignum_conc@dig dig `uc  1 a 1 wreg ]
+[v dignum_conc@dig dig `uc  1 a 1 wreg ]
+[v dignum_conc@ptrNum ptrNum `*.4ui  1 p 1 6 ]
+"303
+[v dignum_conc@dig dig `uc  1 a 1 11 ]
+"304
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+{
+"17
+[v ___wmul@product product `ui  1 a 2 4 ]
+"15
+[v ___wmul@multiplier multiplier `ui  1 p 2 0 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+"53
+} 0
+"306 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\fifo.c
+[v _dignum_apagar dignum_apagar `(v  1 e 1 0 ]
+{
+[v dignum_apagar@ptrNum ptrNum `*.4ui  1 a 1 wreg ]
+[v dignum_apagar@ptrNum ptrNum `*.4ui  1 a 1 wreg ]
+"308
+[v dignum_apagar@ptrNum ptrNum `*.4ui  1 a 1 8 ]
+"309
+} 0
+"5 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwdiv@quotient quotient `ui  1 a 2 6 ]
+"11
+[v ___lwdiv@counter counter `uc  1 a 1 5 ]
+"5
+[v ___lwdiv@divisor divisor `ui  1 p 2 0 ]
+[v ___lwdiv@dividend dividend `ui  1 p 2 2 ]
+"30
+} 0
+"17 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\fifo.c
+[v _addIndicePassos addIndicePassos `(v  1 e 1 0 ]
+{
+"21
+} 0
+"57
+[v _addContCiclos addContCiclos `(v  1 e 1 0 ]
+{
+"60
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+{
+"17
+[v ___lmul@product product `ul  1 a 4 9 ]
+"15
+[v ___lmul@multiplier multiplier `ul  1 p 4 0 ]
+[v ___lmul@multiplicand multiplicand `ul  1 p 4 4 ]
+"129
+} 0
+"32 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\main.c
+[v _irq irq `II(v  1 e 1 0 ]
+{
+"42
+} 0
+"5 C:\Users\19180064\MPLABXProjects\sequenciadorProgramavel\seqProg.X\timer1.c
+[v _intt1_1ms intt1_1ms `(v  1 e 1 0 ]
+{
+"14
+} 0

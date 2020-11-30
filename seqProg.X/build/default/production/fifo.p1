@@ -1,0 +1,1210 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"65 fifo.c
+[; ;fifo.c: 65:     {
+[s S12 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S12 . A B C D . ]
+"63
+[; ;fifo.c: 63: {
+[u S11 `S12 1 ]
+[n S11 . . ]
+"42 ./fifo.h
+[; ;./fifo.h: 42: void fifo_alinharPrint( void );
+[v _fifo_alinharPrint `(v ~T0 @X0 0 ef ]
+"9 ./dispLCD4vias.h
+[; ;./dispLCD4vias.h: 9: void dispLCD_lincol( unsigned char lin, unsigned char col);
+[v _dispLCD_lincol `(v ~T0 @X0 0 ef2`uc`uc ]
+"8
+[; ;./dispLCD4vias.h: 8: void dispLCD_dataReg( unsigned char d );
+[v _dispLCD_dataReg `(v ~T0 @X0 0 ef1`uc ]
+"12
+[; ;./dispLCD4vias.h: 12: void dispLCD_num( unsigned char lin, unsigned char col, int num, unsigned char tam );
+[v _dispLCD_num `(v ~T0 @X0 0 ef4`uc`uc`i`uc ]
+"9 fifo.c
+[; ;fifo.c: 9: char fila[62];
+[v _fila `uc ~T0 @X0 -> 62 `i e ]
+"10
+[; ;fifo.c: 10: char ind_fila = 2;
+[v _ind_fila `uc ~T0 @X0 1 e ]
+[i _ind_fila
+-> -> 2 `i `uc
+]
+"11
+[; ;fifo.c: 11: char ind_print = 2;
+[v _ind_print `uc ~T0 @X0 1 e ]
+[i _ind_print
+-> -> 2 `i `uc
+]
+"12
+[; ;fifo.c: 12: unsigned int ciclos = 0;
+[v _ciclos `ui ~T0 @X0 1 e ]
+[i _ciclos
+-> -> 0 `i `ui
+]
+"13
+[; ;fifo.c: 13: unsigned int cont_ciclos = 0;
+[v _cont_ciclos `ui ~T0 @X0 1 e ]
+[i _cont_ciclos
+-> -> 0 `i `ui
+]
+"14
+[; ;fifo.c: 14: unsigned char indice_passos = 2;
+[v _indice_passos `uc ~T0 @X0 1 e ]
+[i _indice_passos
+-> -> 2 `i `uc
+]
+"17
+[; ;fifo.c: 17: void addIndicePassos(void)
+[v _addIndicePassos `(v ~T0 @X0 1 ef ]
+"18
+[; ;fifo.c: 18: {
+{
+[e :U _addIndicePassos ]
+[f ]
+"19
+[; ;fifo.c: 19:     if(indice_passos < ind_fila)
+[e $ ! < -> _indice_passos `i -> _ind_fila `i 2  ]
+"20
+[; ;fifo.c: 20:         indice_passos++;
+[e ++ _indice_passos -> -> 1 `i `uc ]
+[e :U 2 ]
+"21
+[; ;fifo.c: 21: }
+[e :UE 1 ]
+}
+"23
+[; ;fifo.c: 23: void decIndicePassos(void)
+[v _decIndicePassos `(v ~T0 @X0 1 ef ]
+"24
+[; ;fifo.c: 24: {
+{
+[e :U _decIndicePassos ]
+[f ]
+"25
+[; ;fifo.c: 25:     if(indice_passos > 2)
+[e $ ! > -> _indice_passos `i -> 2 `i 4  ]
+"26
+[; ;fifo.c: 26:         indice_passos--;
+[e -- _indice_passos -> -> 1 `i `uc ]
+[e :U 4 ]
+"27
+[; ;fifo.c: 27: }
+[e :UE 3 ]
+}
+"29
+[; ;fifo.c: 29: unsigned char getIndicePassos(void)
+[v _getIndicePassos `(uc ~T0 @X0 1 ef ]
+"30
+[; ;fifo.c: 30: {
+{
+[e :U _getIndicePassos ]
+[f ]
+"31
+[; ;fifo.c: 31:     return(indice_passos);
+[e ) _indice_passos ]
+[e $UE 5  ]
+"32
+[; ;fifo.c: 32: }
+[e :UE 5 ]
+}
+"34
+[; ;fifo.c: 34: void resetIndicePassos(void)
+[v _resetIndicePassos `(v ~T0 @X0 1 ef ]
+"35
+[; ;fifo.c: 35: {
+{
+[e :U _resetIndicePassos ]
+[f ]
+"36
+[; ;fifo.c: 36:     indice_passos = 2;
+[e = _indice_passos -> -> 2 `i `uc ]
+"37
+[; ;fifo.c: 37: }
+[e :UE 6 ]
+}
+"39
+[; ;fifo.c: 39: unsigned int getCiclos(void)
+[v _getCiclos `(ui ~T0 @X0 1 ef ]
+"40
+[; ;fifo.c: 40: {
+{
+[e :U _getCiclos ]
+[f ]
+"41
+[; ;fifo.c: 41:     int aux = fila[1];
+[v _aux `i ~T0 @X0 1 a ]
+[e = _aux -> *U + &U _fila * -> -> -> 1 `i `ui `ux -> -> # *U &U _fila `ui `ux `i ]
+"42
+[; ;fifo.c: 42:     aux <<= 8;
+[e =<< _aux -> 8 `i ]
+"43
+[; ;fifo.c: 43:     aux +=fila[0];
+[e =+ _aux -> *U + &U _fila * -> -> -> 0 `i `ui `ux -> -> # *U &U _fila `ui `ux `i ]
+"44
+[; ;fifo.c: 44:     return(aux);
+[e ) -> _aux `ui ]
+[e $UE 7  ]
+"45
+[; ;fifo.c: 45: }
+[e :UE 7 ]
+}
+"47
+[; ;fifo.c: 47: unsigned int getContCiclos(void)
+[v _getContCiclos `(ui ~T0 @X0 1 ef ]
+"48
+[; ;fifo.c: 48: {
+{
+[e :U _getContCiclos ]
+[f ]
+"49
+[; ;fifo.c: 49:     return(cont_ciclos);
+[e ) _cont_ciclos ]
+[e $UE 8  ]
+"50
+[; ;fifo.c: 50: }
+[e :UE 8 ]
+}
+"52
+[; ;fifo.c: 52: void resetContCiclos(void)
+[v _resetContCiclos `(v ~T0 @X0 1 ef ]
+"53
+[; ;fifo.c: 53: {
+{
+[e :U _resetContCiclos ]
+[f ]
+"54
+[; ;fifo.c: 54:     cont_ciclos = 0;
+[e = _cont_ciclos -> -> 0 `i `ui ]
+"55
+[; ;fifo.c: 55: }
+[e :UE 9 ]
+}
+"57
+[; ;fifo.c: 57: void addContCiclos(void)
+[v _addContCiclos `(v ~T0 @X0 1 ef ]
+"58
+[; ;fifo.c: 58: {
+{
+[e :U _addContCiclos ]
+[f ]
+"59
+[; ;fifo.c: 59:     cont_ciclos++;
+[e ++ _cont_ciclos -> -> 1 `i `ui ]
+"60
+[; ;fifo.c: 60: }
+[e :UE 10 ]
+}
+"72
+[; ;fifo.c: 72: }atuador;
+[v _atuador `S11 ~T0 @X0 1 e ]
+"80
+[; ;fifo.c: 80: char ler_atuador(char tecla)
+[v _ler_atuador `(uc ~T0 @X0 1 ef1`uc ]
+"81
+[; ;fifo.c: 81: {
+{
+[e :U _ler_atuador ]
+"80
+[; ;fifo.c: 80: char ler_atuador(char tecla)
+[v _tecla `uc ~T0 @X0 1 r1 ]
+"81
+[; ;fifo.c: 81: {
+[f ]
+"82
+[; ;fifo.c: 82:     switch(tecla)
+[e $U 15  ]
+"83
+[; ;fifo.c: 83:     {
+{
+"84
+[; ;fifo.c: 84:         case 'A': return(atuador.A); break;
+[e :U 16 ]
+[e ) -> . . _atuador 0 0 `uc ]
+[e $UE 13  ]
+[e $U 14  ]
+"85
+[; ;fifo.c: 85:         case 'B': return(atuador.B); break;
+[e :U 17 ]
+[e ) -> . . _atuador 0 1 `uc ]
+[e $UE 13  ]
+[e $U 14  ]
+"86
+[; ;fifo.c: 86:         case 'C': return(atuador.C); break;
+[e :U 18 ]
+[e ) -> . . _atuador 0 2 `uc ]
+[e $UE 13  ]
+[e $U 14  ]
+"87
+[; ;fifo.c: 87:         case 'D': return(atuador.D); break;
+[e :U 19 ]
+[e ) -> . . _atuador 0 3 `uc ]
+[e $UE 13  ]
+[e $U 14  ]
+"88
+[; ;fifo.c: 88:         default: return 0; break;
+[e :U 20 ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 13  ]
+[e $U 14  ]
+"89
+[; ;fifo.c: 89:     }
+}
+[e $U 14  ]
+[e :U 15 ]
+[e [\ -> _tecla `i , $ -> -> 65 `ui `i 16
+ , $ -> -> 66 `ui `i 17
+ , $ -> -> 67 `ui `i 18
+ , $ -> -> 68 `ui `i 19
+ 20 ]
+[e :U 14 ]
+"90
+[; ;fifo.c: 90: }
+[e :UE 13 ]
+}
+"92
+[; ;fifo.c: 92: void alt_atuador( char tecla )
+[v _alt_atuador `(v ~T0 @X0 1 ef1`uc ]
+"93
+[; ;fifo.c: 93: {
+{
+[e :U _alt_atuador ]
+"92
+[; ;fifo.c: 92: void alt_atuador( char tecla )
+[v _tecla `uc ~T0 @X0 1 r1 ]
+"93
+[; ;fifo.c: 93: {
+[f ]
+"94
+[; ;fifo.c: 94:     switch(tecla)
+[e $U 23  ]
+"95
+[; ;fifo.c: 95:     {
+{
+"96
+[; ;fifo.c: 96:         case 'A': atuador.A = atuador.A ^ 1; break;
+[e :U 24 ]
+[e = . . _atuador 0 0 -> ^ -> . . _atuador 0 0 `i -> 1 `i `uc ]
+[e $U 22  ]
+"97
+[; ;fifo.c: 97:         case 'B': atuador.B = atuador.B ^ 1; break;
+[e :U 25 ]
+[e = . . _atuador 0 1 -> ^ -> . . _atuador 0 1 `i -> 1 `i `uc ]
+[e $U 22  ]
+"98
+[; ;fifo.c: 98:         case 'C': atuador.C = atuador.C ^ 1; break;
+[e :U 26 ]
+[e = . . _atuador 0 2 -> ^ -> . . _atuador 0 2 `i -> 1 `i `uc ]
+[e $U 22  ]
+"99
+[; ;fifo.c: 99:         case 'D': atuador.D = atuador.D ^ 1; break;
+[e :U 27 ]
+[e = . . _atuador 0 3 -> ^ -> . . _atuador 0 3 `i -> 1 `i `uc ]
+[e $U 22  ]
+"100
+[; ;fifo.c: 100:     }
+}
+[e $U 22  ]
+[e :U 23 ]
+[e [\ -> _tecla `i , $ -> -> 65 `ui `i 24
+ , $ -> -> 66 `ui `i 25
+ , $ -> -> 67 `ui `i 26
+ , $ -> -> 68 `ui `i 27
+ 22 ]
+[e :U 22 ]
+"101
+[; ;fifo.c: 101: }
+[e :UE 21 ]
+}
+"103
+[; ;fifo.c: 103: void init_atuadores(void)
+[v _init_atuadores `(v ~T0 @X0 1 ef ]
+"104
+[; ;fifo.c: 104: {
+{
+[e :U _init_atuadores ]
+[f ]
+"105
+[; ;fifo.c: 105:     atuador.A = 0;
+[e = . . _atuador 0 0 -> -> 0 `i `uc ]
+"106
+[; ;fifo.c: 106:     atuador.B = 0;
+[e = . . _atuador 0 1 -> -> 0 `i `uc ]
+"107
+[; ;fifo.c: 107:     atuador.C = 0;
+[e = . . _atuador 0 2 -> -> 0 `i `uc ]
+"108
+[; ;fifo.c: 108:     atuador.D = 0;
+[e = . . _atuador 0 3 -> -> 0 `i `uc ]
+"109
+[; ;fifo.c: 109: }
+[e :UE 28 ]
+}
+"119
+[; ;fifo.c: 119: void fifo_reset(void)
+[v _fifo_reset `(v ~T0 @X0 1 ef ]
+"120
+[; ;fifo.c: 120: {
+{
+[e :U _fifo_reset ]
+[f ]
+"121
+[; ;fifo.c: 121:     for( char i=0; i<2; i++ )
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 2 `i 30  ]
+[e $U 31  ]
+[e :U 30 ]
+"122
+[; ;fifo.c: 122:         fila[i] = 0;
+[e = *U + &U _fila * -> _i `ux -> -> # *U &U _fila `ui `ux -> -> 0 `i `uc ]
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 2 `i 30  ]
+[e :U 31 ]
+}
+"124
+[; ;fifo.c: 124:     fila[2] = ' ';
+[e = *U + &U _fila * -> -> -> 2 `i `ui `ux -> -> # *U &U _fila `ui `ux -> -> 32 `ui `uc ]
+"125
+[; ;fifo.c: 125:     fila[2 + 1] = 0;
+[e = *U + &U _fila * -> -> + -> 2 `i -> 1 `i `ui `ux -> -> # *U &U _fila `ui `ux -> -> 0 `i `uc ]
+"126
+[; ;fifo.c: 126:     ind_fila = 2;
+[e = _ind_fila -> -> 2 `i `uc ]
+"127
+[; ;fifo.c: 127: }
+[e :UE 29 ]
+}
+"128
+[; ;fifo.c: 128: char fifo_lerPos(char i)
+[v _fifo_lerPos `(uc ~T0 @X0 1 ef1`uc ]
+"129
+[; ;fifo.c: 129: {
+{
+[e :U _fifo_lerPos ]
+"128
+[; ;fifo.c: 128: char fifo_lerPos(char i)
+[v _i `uc ~T0 @X0 1 r1 ]
+"129
+[; ;fifo.c: 129: {
+[f ]
+"130
+[; ;fifo.c: 130:     return ( fila[i] );
+[e ) *U + &U _fila * -> _i `ux -> -> # *U &U _fila `ui `ux ]
+[e $UE 33  ]
+"131
+[; ;fifo.c: 131: }
+[e :UE 33 ]
+}
+"133
+[; ;fifo.c: 133: void fifo_modifica(char pos, char valor)
+[v _fifo_modifica `(v ~T0 @X0 1 ef2`uc`uc ]
+"134
+[; ;fifo.c: 134: {
+{
+[e :U _fifo_modifica ]
+"133
+[; ;fifo.c: 133: void fifo_modifica(char pos, char valor)
+[v _pos `uc ~T0 @X0 1 r1 ]
+[v _valor `uc ~T0 @X0 1 r2 ]
+"134
+[; ;fifo.c: 134: {
+[f ]
+"135
+[; ;fifo.c: 135:     fila[pos] = valor;
+[e = *U + &U _fila * -> _pos `ux -> -> # *U &U _fila `ui `ux _valor ]
+"136
+[; ;fifo.c: 136: }
+[e :UE 34 ]
+}
+"138
+[; ;fifo.c: 138: char * fifo_adrs(void)
+[v _fifo_adrs `(*uc ~T0 @X0 1 ef ]
+"139
+[; ;fifo.c: 139: {
+{
+[e :U _fifo_adrs ]
+[f ]
+"140
+[; ;fifo.c: 140:     return fila;
+[e ) &U _fila ]
+[e $UE 35  ]
+"141
+[; ;fifo.c: 141: }
+[e :UE 35 ]
+}
+"143
+[; ;fifo.c: 143: void fifo_delete(void)
+[v _fifo_delete `(v ~T0 @X0 1 ef ]
+"144
+[; ;fifo.c: 144: {
+{
+[e :U _fifo_delete ]
+[f ]
+"145
+[; ;fifo.c: 145:     if(ind_fila)
+[e $ ! != -> _ind_fila `i -> 0 `i 37  ]
+"146
+[; ;fifo.c: 146:     {
+{
+"147
+[; ;fifo.c: 147:         if(ind_fila > 2)
+[e $ ! > -> _ind_fila `i -> 2 `i 38  ]
+"148
+[; ;fifo.c: 148:             ind_fila--;
+[e -- _ind_fila -> -> 1 `i `uc ]
+[e :U 38 ]
+"149
+[; ;fifo.c: 149:         alt_atuador(fila[ind_fila] & ~0x20);
+[e ( _alt_atuador (1 -> & -> *U + &U _fila * -> _ind_fila `ux -> -> # *U &U _fila `ui `ux `i ~ -> 32 `i `uc ]
+"150
+[; ;fifo.c: 150:         fila[ind_fila] = 0;
+[e = *U + &U _fila * -> _ind_fila `ux -> -> # *U &U _fila `ui `ux -> -> 0 `i `uc ]
+"151
+[; ;fifo.c: 151:     }
+}
+[e :U 37 ]
+"152
+[; ;fifo.c: 152:     fifo_alinharPrint();
+[e ( _fifo_alinharPrint ..  ]
+"153
+[; ;fifo.c: 153: }
+[e :UE 36 ]
+}
+"155
+[; ;fifo.c: 155: void fifo_add(const char passo)
+[v _fifo_add `(v ~T0 @X0 1 ef1`Cuc ]
+"156
+[; ;fifo.c: 156: {
+{
+[e :U _fifo_add ]
+"155
+[; ;fifo.c: 155: void fifo_add(const char passo)
+[v _passo `Cuc ~T0 @X0 1 r1 ]
+"156
+[; ;fifo.c: 156: {
+[f ]
+"157
+[; ;fifo.c: 157:     if(ind_fila < 62)
+[e $ ! < -> _ind_fila `i -> 62 `i 40  ]
+"158
+[; ;fifo.c: 158:     {
+{
+"159
+[; ;fifo.c: 159:         if(passo)
+[e $ ! != -> _passo `i -> 0 `i 41  ]
+"160
+[; ;fifo.c: 160:         {
+{
+"161
+[; ;fifo.c: 161:             fila[ind_fila] = passo;
+[e = *U + &U _fila * -> _ind_fila `ux -> -> # *U &U _fila `ui `ux _passo ]
+"162
+[; ;fifo.c: 162:             ind_fila++;
+[e ++ _ind_fila -> -> 1 `i `uc ]
+"163
+[; ;fifo.c: 163:             fila[ind_fila] = 0;
+[e = *U + &U _fila * -> _ind_fila `ux -> -> # *U &U _fila `ui `ux -> -> 0 `i `uc ]
+"164
+[; ;fifo.c: 164:         }
+}
+[e :U 41 ]
+"165
+[; ;fifo.c: 165:     }
+}
+[e :U 40 ]
+"166
+[; ;fifo.c: 166:     fifo_alinharPrint();
+[e ( _fifo_alinharPrint ..  ]
+"167
+[; ;fifo.c: 167: }
+[e :UE 39 ]
+}
+"169
+[; ;fifo.c: 169: void fifo_add_tempo(const char t)
+[v _fifo_add_tempo `(v ~T0 @X0 1 ef1`Cuc ]
+"170
+[; ;fifo.c: 170: {
+{
+[e :U _fifo_add_tempo ]
+"169
+[; ;fifo.c: 169: void fifo_add_tempo(const char t)
+[v _t `Cuc ~T0 @X0 1 r1 ]
+"170
+[; ;fifo.c: 170: {
+[f ]
+"171
+[; ;fifo.c: 171:     if(ind_fila < 62)
+[e $ ! < -> _ind_fila `i -> 62 `i 43  ]
+"172
+[; ;fifo.c: 172:     {
+{
+"173
+[; ;fifo.c: 173:         if(t)
+[e $ ! != -> _t `i -> 0 `i 44  ]
+"174
+[; ;fifo.c: 174:         {
+{
+"175
+[; ;fifo.c: 175:             fila[ind_fila] = t | 0x80;
+[e = *U + &U _fila * -> _ind_fila `ux -> -> # *U &U _fila `ui `ux -> | -> _t `i -> 128 `i `uc ]
+"176
+[; ;fifo.c: 176:             ind_fila++;
+[e ++ _ind_fila -> -> 1 `i `uc ]
+"177
+[; ;fifo.c: 177:             fila[ind_fila] = 0;
+[e = *U + &U _fila * -> _ind_fila `ux -> -> # *U &U _fila `ui `ux -> -> 0 `i `uc ]
+"178
+[; ;fifo.c: 178:         }
+}
+[e :U 44 ]
+"179
+[; ;fifo.c: 179:     }
+}
+[e :U 43 ]
+"180
+[; ;fifo.c: 180:     fifo_alinharPrint();
+[e ( _fifo_alinharPrint ..  ]
+"181
+[; ;fifo.c: 181: }
+[e :UE 42 ]
+}
+"183
+[; ;fifo.c: 183: void fifo_add_ciclo(unsigned int ciclos)
+[v _fifo_add_ciclo `(v ~T0 @X0 1 ef1`ui ]
+"184
+[; ;fifo.c: 184: {
+{
+[e :U _fifo_add_ciclo ]
+"183
+[; ;fifo.c: 183: void fifo_add_ciclo(unsigned int ciclos)
+[v _ciclos `ui ~T0 @X0 1 r1 ]
+"184
+[; ;fifo.c: 184: {
+[f ]
+"185
+[; ;fifo.c: 185:     fila[0] = ciclos & 0x00ff;
+[e = *U + &U _fila * -> -> -> 0 `i `ui `ux -> -> # *U &U _fila `ui `ux -> & _ciclos -> -> 255 `i `ui `uc ]
+"186
+[; ;fifo.c: 186:     fila[1] = ciclos >> 8;
+[e = *U + &U _fila * -> -> -> 1 `i `ui `ux -> -> # *U &U _fila `ui `ux -> >> _ciclos -> 8 `i `uc ]
+"187
+[; ;fifo.c: 187: }
+[e :UE 45 ]
+}
+"191
+[; ;fifo.c: 191: char fifo_indice(void)
+[v _fifo_indice `(uc ~T0 @X0 1 ef ]
+"192
+[; ;fifo.c: 192: {
+{
+[e :U _fifo_indice ]
+[f ]
+"193
+[; ;fifo.c: 193:     return ( ind_fila );
+[e ) _ind_fila ]
+[e $UE 46  ]
+"194
+[; ;fifo.c: 194: }
+[e :UE 46 ]
+}
+"196
+[; ;fifo.c: 196: char fifo_disponivel( void )
+[v _fifo_disponivel `(uc ~T0 @X0 1 ef ]
+"197
+[; ;fifo.c: 197: {
+{
+[e :U _fifo_disponivel ]
+[f ]
+"198
+[; ;fifo.c: 198:     return( ind_fila < 62 );
+[e ) -> -> < -> _ind_fila `i -> 62 `i `i `uc ]
+[e $UE 47  ]
+"199
+[; ;fifo.c: 199: }
+[e :UE 47 ]
+}
+"201
+[; ;fifo.c: 201: char fifo_tam(void)
+[v _fifo_tam `(uc ~T0 @X0 1 ef ]
+"202
+[; ;fifo.c: 202: {
+{
+[e :U _fifo_tam ]
+[f ]
+"203
+[; ;fifo.c: 203:     return( 62 );
+[e ) -> -> 62 `i `uc ]
+[e $UE 48  ]
+"204
+[; ;fifo.c: 204: }
+[e :UE 48 ]
+}
+"206
+[; ;fifo.c: 206: void fifo_indicePrint_inc( void )
+[v _fifo_indicePrint_inc `(v ~T0 @X0 1 ef ]
+"207
+[; ;fifo.c: 207: {
+{
+[e :U _fifo_indicePrint_inc ]
+[f ]
+"208
+[; ;fifo.c: 208:     if( ind_print < 62 -1 )
+[e $ ! < -> _ind_print `i - -> 62 `i -> 1 `i 50  ]
+"209
+[; ;fifo.c: 209:     {
+{
+"210
+[; ;fifo.c: 210:         if( ind_print < ind_fila-1 )
+[e $ ! < -> _ind_print `i - -> _ind_fila `i -> 1 `i 51  ]
+"211
+[; ;fifo.c: 211:             ind_print++;
+[e ++ _ind_print -> -> 1 `i `uc ]
+[e $U 52  ]
+"212
+[; ;fifo.c: 212:         else
+[e :U 51 ]
+"213
+[; ;fifo.c: 213:             ind_print = ind_fila-1;
+[e = _ind_print -> - -> _ind_fila `i -> 1 `i `uc ]
+[e :U 52 ]
+"214
+[; ;fifo.c: 214:     }
+}
+[e $U 53  ]
+"215
+[; ;fifo.c: 215:     else
+[e :U 50 ]
+"216
+[; ;fifo.c: 216:         ind_print = 62 -1;
+[e = _ind_print -> - -> 62 `i -> 1 `i `uc ]
+[e :U 53 ]
+"217
+[; ;fifo.c: 217: }
+[e :UE 49 ]
+}
+"218
+[; ;fifo.c: 218: void fifo_indicePrint_dec( void )
+[v _fifo_indicePrint_dec `(v ~T0 @X0 1 ef ]
+"219
+[; ;fifo.c: 219: {
+{
+[e :U _fifo_indicePrint_dec ]
+[f ]
+"220
+[; ;fifo.c: 220:     if( ind_print > 2 )
+[e $ ! > -> _ind_print `i -> 2 `i 55  ]
+"221
+[; ;fifo.c: 221:         ind_print--;
+[e -- _ind_print -> -> 1 `i `uc ]
+[e :U 55 ]
+"222
+[; ;fifo.c: 222: }
+[e :UE 54 ]
+}
+"226
+[; ;fifo.c: 226: void fifo_print(void)
+[v _fifo_print `(v ~T0 @X0 1 ef ]
+"227
+[; ;fifo.c: 227: {
+{
+[e :U _fifo_print ]
+[f ]
+"228
+[; ;fifo.c: 228:     char completar = 0;
+[v _completar `uc ~T0 @X0 1 a ]
+[e = _completar -> -> 0 `i `uc ]
+"229
+[; ;fifo.c: 229:     char comando = 0;
+[v _comando `uc ~T0 @X0 1 a ]
+[e = _comando -> -> 0 `i `uc ]
+"230
+[; ;fifo.c: 230:     char atraso = 0;
+[v _atraso `uc ~T0 @X0 1 a ]
+[e = _atraso -> -> 0 `i `uc ]
+"231
+[; ;fifo.c: 231:     char i = 0;
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+"232
+[; ;fifo.c: 232:     char indPrint = ind_print;
+[v _indPrint `uc ~T0 @X0 1 a ]
+[e = _indPrint _ind_print ]
+"234
+[; ;fifo.c: 234:     dispLCD_lincol(0, 0);
+[e ( _dispLCD_lincol (2 , -> -> 0 `i `uc -> -> 0 `i `uc ]
+"235
+[; ;fifo.c: 235:     do
+[e :U 59 ]
+"236
+[; ;fifo.c: 236:     {
+{
+"237
+[; ;fifo.c: 237:         if( completar )
+[e $ ! != -> _completar `i -> 0 `i 60  ]
+"238
+[; ;fifo.c: 238:         {
+{
+"239
+[; ;fifo.c: 239:             dispLCD_dataReg(' ');
+[e ( _dispLCD_dataReg (1 -> -> 32 `ui `uc ]
+"240
+[; ;fifo.c: 240:             ++i;
+[e =+ _i -> -> 1 `i `uc ]
+"241
+[; ;fifo.c: 241:         }
+}
+[e $U 61  ]
+"242
+[; ;fifo.c: 242:         else
+[e :U 60 ]
+"243
+[; ;fifo.c: 243:         {
+{
+"244
+[; ;fifo.c: 244:             comando = fila[indPrint++];
+[e = _comando *U + &U _fila * -> ++ _indPrint -> -> 1 `i `uc `ux -> -> # *U &U _fila `ui `ux ]
+"246
+[; ;fifo.c: 246:             if( comando == 0 )
+[e $ ! == -> _comando `i -> 0 `i 62  ]
+"247
+[; ;fifo.c: 247:                 completar = 1;
+[e = _completar -> -> 1 `i `uc ]
+[e $U 63  ]
+"248
+[; ;fifo.c: 248:             else if(comando & 0x80)
+[e :U 62 ]
+[e $ ! != & -> _comando `i -> 128 `i -> 0 `i 64  ]
+"249
+[; ;fifo.c: 249:             {
+{
+"250
+[; ;fifo.c: 250:                 atraso = comando & ~0x80;
+[e = _atraso -> & -> _comando `i ~ -> 128 `i `uc ]
+"251
+[; ;fifo.c: 251:                 if( atraso >= 100 )
+[e $ ! >= -> _atraso `i -> 100 `i 65  ]
+"252
+[; ;fifo.c: 252:                 {
+{
+"253
+[; ;fifo.c: 253:                     dispLCD_dataReg('1');
+[e ( _dispLCD_dataReg (1 -> -> 49 `ui `uc ]
+"254
+[; ;fifo.c: 254:                     ++i;
+[e =+ _i -> -> 1 `i `uc ]
+"255
+[; ;fifo.c: 255:                     atraso %= 100;
+[e =% _atraso -> 100 `i ]
+"256
+[; ;fifo.c: 256:                     if(atraso < 10)
+[e $ ! < -> _atraso `i -> 10 `i 66  ]
+"257
+[; ;fifo.c: 257:                     {
+{
+"258
+[; ;fifo.c: 258:                         dispLCD_dataReg('0');
+[e ( _dispLCD_dataReg (1 -> -> 48 `ui `uc ]
+"259
+[; ;fifo.c: 259:                         ++i;
+[e =+ _i -> -> 1 `i `uc ]
+"260
+[; ;fifo.c: 260:                     }
+}
+[e :U 66 ]
+"261
+[; ;fifo.c: 261:                 }
+}
+[e :U 65 ]
+"262
+[; ;fifo.c: 262:                 if( atraso >= 10 )
+[e $ ! >= -> _atraso `i -> 10 `i 67  ]
+"263
+[; ;fifo.c: 263:                 {
+{
+"264
+[; ;fifo.c: 264:                     dispLCD_dataReg(atraso/10 + '0');
+[e ( _dispLCD_dataReg (1 -> + -> / -> _atraso `i -> 10 `i `ui -> 48 `ui `uc ]
+"265
+[; ;fifo.c: 265:                     ++i;
+[e =+ _i -> -> 1 `i `uc ]
+"266
+[; ;fifo.c: 266:                     atraso %= 10;
+[e =% _atraso -> 10 `i ]
+"267
+[; ;fifo.c: 267:                 }
+}
+[e :U 67 ]
+"269
+[; ;fifo.c: 269:                 dispLCD_dataReg(atraso + '0');
+[e ( _dispLCD_dataReg (1 -> + -> _atraso `ui -> 48 `ui `uc ]
+"270
+[; ;fifo.c: 270:                 ++i;
+[e =+ _i -> -> 1 `i `uc ]
+"272
+[; ;fifo.c: 272:                 dispLCD_dataReg('s');
+[e ( _dispLCD_dataReg (1 -> -> 115 `ui `uc ]
+"273
+[; ;fifo.c: 273:                 ++i;
+[e =+ _i -> -> 1 `i `uc ]
+"274
+[; ;fifo.c: 274:             }
+}
+[e $U 68  ]
+"275
+[; ;fifo.c: 275:             else
+[e :U 64 ]
+"276
+[; ;fifo.c: 276:             {
+{
+"277
+[; ;fifo.c: 277:                 switch( comando )
+[e $U 70  ]
+"278
+[; ;fifo.c: 278:                 {
+{
+"279
+[; ;fifo.c: 279:                     case 'A':
+[e :U 71 ]
+"280
+[; ;fifo.c: 280:                     case 'B':
+[e :U 72 ]
+"281
+[; ;fifo.c: 281:                     case 'C':
+[e :U 73 ]
+"282
+[; ;fifo.c: 282:                     case 'D':
+[e :U 74 ]
+"283
+[; ;fifo.c: 283:                     case 'a':
+[e :U 75 ]
+"284
+[; ;fifo.c: 284:                     case 'b':
+[e :U 76 ]
+"285
+[; ;fifo.c: 285:                     case 'c':
+[e :U 77 ]
+"286
+[; ;fifo.c: 286:                     case 'd':
+[e :U 78 ]
+"287
+[; ;fifo.c: 287:                                 dispLCD_dataReg( comando & ~0x20 );
+[e ( _dispLCD_dataReg (1 -> & -> _comando `i ~ -> 32 `i `uc ]
+"288
+[; ;fifo.c: 288:                                 ++i;
+[e =+ _i -> -> 1 `i `uc ]
+"289
+[; ;fifo.c: 289:                                 dispLCD_dataReg( comando & 0x20 ? '-': '+' );
+[e ( _dispLCD_dataReg (1 -> ? != & -> _comando `i -> 32 `i -> 0 `i : -> 45 `ui -> 43 `ui `uc ]
+"290
+[; ;fifo.c: 290:                                 ++i;
+[e =+ _i -> -> 1 `i `uc ]
+"291
+[; ;fifo.c: 291:                                 break;
+[e $U 69  ]
+"293
+[; ;fifo.c: 293:                 }
+}
+[e $U 69  ]
+[e :U 70 ]
+[e [\ -> _comando `i , $ -> -> 65 `ui `i 71
+ , $ -> -> 66 `ui `i 72
+ , $ -> -> 67 `ui `i 73
+ , $ -> -> 68 `ui `i 74
+ , $ -> -> 97 `ui `i 75
+ , $ -> -> 98 `ui `i 76
+ , $ -> -> 99 `ui `i 77
+ , $ -> -> 100 `ui `i 78
+ 69 ]
+[e :U 69 ]
+"295
+[; ;fifo.c: 295:             }
+}
+[e :U 68 ]
+[e :U 63 ]
+"296
+[; ;fifo.c: 296:         }
+}
+[e :U 61 ]
+"297
+[; ;fifo.c: 297:     }
+}
+[e $ <= -> _i `i -> 16 `i 59  ]
+[e :U 58 ]
+"299
+[; ;fifo.c: 299: }
+[e :UE 56 ]
+}
+"301
+[; ;fifo.c: 301: void dignum_conc(char dig, unsigned int * ptrNum )
+[v _dignum_conc `(v ~T0 @X0 1 ef2`uc`*ui ]
+"302
+[; ;fifo.c: 302: {
+{
+[e :U _dignum_conc ]
+"301
+[; ;fifo.c: 301: void dignum_conc(char dig, unsigned int * ptrNum )
+[v _dig `uc ~T0 @X0 1 r1 ]
+[v _ptrNum `*ui ~T0 @X0 1 r2 ]
+"302
+[; ;fifo.c: 302: {
+[f ]
+"303
+[; ;fifo.c: 303:     *ptrNum = (*ptrNum * 10) + (dig - '0');
+[e = *U _ptrNum + * *U _ptrNum -> -> 10 `i `ui - -> _dig `ui -> 48 `ui ]
+"304
+[; ;fifo.c: 304: }
+[e :UE 79 ]
+}
+"306
+[; ;fifo.c: 306: void dignum_apagar(unsigned int * ptrNum )
+[v _dignum_apagar `(v ~T0 @X0 1 ef1`*ui ]
+"307
+[; ;fifo.c: 307: {
+{
+[e :U _dignum_apagar ]
+"306
+[; ;fifo.c: 306: void dignum_apagar(unsigned int * ptrNum )
+[v _ptrNum `*ui ~T0 @X0 1 r1 ]
+"307
+[; ;fifo.c: 307: {
+[f ]
+"308
+[; ;fifo.c: 308:     *ptrNum /= 10;
+[e =/ *U _ptrNum -> -> 10 `i `ui ]
+"309
+[; ;fifo.c: 309: }
+[e :UE 80 ]
+}
+"311
+[; ;fifo.c: 311: unsigned char dignum_tam(int num)
+[v _dignum_tam `(uc ~T0 @X0 1 ef1`i ]
+"312
+[; ;fifo.c: 312: {
+{
+[e :U _dignum_tam ]
+"311
+[; ;fifo.c: 311: unsigned char dignum_tam(int num)
+[v _num `i ~T0 @X0 1 r1 ]
+"312
+[; ;fifo.c: 312: {
+[f ]
+"313
+[; ;fifo.c: 313:     unsigned char tam = 0;
+[v _tam `uc ~T0 @X0 1 a ]
+[e = _tam -> -> 0 `i `uc ]
+"315
+[; ;fifo.c: 315:     while(num != 0)
+[e $U 82  ]
+[e :U 83 ]
+"316
+[; ;fifo.c: 316:     {
+{
+"317
+[; ;fifo.c: 317:         num /= 10;
+[e =/ _num -> 10 `i ]
+"318
+[; ;fifo.c: 318:         tam++;
+[e ++ _tam -> -> 1 `i `uc ]
+"319
+[; ;fifo.c: 319:     }
+}
+[e :U 82 ]
+"315
+[; ;fifo.c: 315:     while(num != 0)
+[e $ != _num -> 0 `i 83  ]
+[e :U 84 ]
+"320
+[; ;fifo.c: 320:     return ( tam );
+[e ) _tam ]
+[e $UE 81  ]
+"321
+[; ;fifo.c: 321: }
+[e :UE 81 ]
+}
+"323
+[; ;fifo.c: 323: void fifo_alinharPrint( void )
+[v _fifo_alinharPrint `(v ~T0 @X0 1 ef ]
+"324
+[; ;fifo.c: 324: {
+{
+[e :U _fifo_alinharPrint ]
+[f ]
+"325
+[; ;fifo.c: 325:     unsigned char i;
+[v _i `uc ~T0 @X0 1 a ]
+"326
+[; ;fifo.c: 326:     unsigned char aux;
+[v _aux `uc ~T0 @X0 1 a ]
+"327
+[; ;fifo.c: 327:     unsigned char cont = 0;
+[v _cont `uc ~T0 @X0 1 a ]
+[e = _cont -> -> 0 `i `uc ]
+"329
+[; ;fifo.c: 329:     for( i=ind_fila-1; i>=2; i-- )
+{
+[e = _i -> - -> _ind_fila `i -> 1 `i `uc ]
+[e $ >= -> _i `i -> 2 `i 86  ]
+[e $U 87  ]
+[e :U 86 ]
+"330
+[; ;fifo.c: 330:     {
+{
+"331
+[; ;fifo.c: 331:         aux = fila[i];
+[e = _aux -> *U + &U _fila * -> _i `ux -> -> # *U &U _fila `ui `ux `uc ]
+"332
+[; ;fifo.c: 332:         if( aux & 0x80 )
+[e $ ! != & -> _aux `i -> 128 `i -> 0 `i 89  ]
+"333
+[; ;fifo.c: 333:         {
+{
+"334
+[; ;fifo.c: 334:             cont += dignum_tam( aux & 0x7F )+1;
+[e =+ _cont -> + -> ( _dignum_tam (1 & -> _aux `i -> 127 `i `i -> 1 `i `uc ]
+"335
+[; ;fifo.c: 335:         }
+}
+[e $U 90  ]
+"336
+[; ;fifo.c: 336:         else if( aux >= 'A' && aux <= 'z' )
+[e :U 89 ]
+[e $ ! && >= -> _aux `ui -> 65 `ui <= -> _aux `ui -> 122 `ui 91  ]
+"337
+[; ;fifo.c: 337:         {
+{
+"338
+[; ;fifo.c: 338:             cont += 2;
+[e =+ _cont -> -> 2 `i `uc ]
+"339
+[; ;fifo.c: 339:         }
+}
+[e :U 91 ]
+[e :U 90 ]
+"341
+[; ;fifo.c: 341:         if( cont > 16 )
+[e $ ! > -> _cont `i -> 16 `i 92  ]
+"342
+[; ;fifo.c: 342:         {
+{
+"343
+[; ;fifo.c: 343:             break;
+[e $U 87  ]
+"344
+[; ;fifo.c: 344:         }
+}
+[e $U 93  ]
+"345
+[; ;fifo.c: 345:         else
+[e :U 92 ]
+"346
+[; ;fifo.c: 346:             ind_print = i;
+[e = _ind_print -> _i `uc ]
+[e :U 93 ]
+"347
+[; ;fifo.c: 347:     }
+}
+[e -- _i -> -> 1 `i `uc ]
+[e $ >= -> _i `i -> 2 `i 86  ]
+[e :U 87 ]
+}
+"348
+[; ;fifo.c: 348: }
+[e :UE 85 ]
+}
+"350
+[; ;fifo.c: 350: char posAtual(char ind)
+[v _posAtual `(uc ~T0 @X0 1 ef1`uc ]
+"351
+[; ;fifo.c: 351: {
+{
+[e :U _posAtual ]
+"350
+[; ;fifo.c: 350: char posAtual(char ind)
+[v _ind `uc ~T0 @X0 1 r1 ]
+"351
+[; ;fifo.c: 351: {
+[f ]
+"352
+[; ;fifo.c: 352:     char passo = 0;
+[v _passo `uc ~T0 @X0 1 a ]
+[e = _passo -> -> 0 `i `uc ]
+"354
+[; ;fifo.c: 354:     passo = fifo_lerPos( getIndicePassos() + ind );
+[e = _passo ( _fifo_lerPos (1 -> + -> ( _getIndicePassos ..  `i -> _ind `i `uc ]
+"355
+[; ;fifo.c: 355:     return(passo);
+[e ) _passo ]
+[e $UE 94  ]
+"356
+[; ;fifo.c: 356: }
+[e :UE 94 ]
+}
+"358
+[; ;fifo.c: 358: void printExec (char col, char ind)
+[v _printExec `(v ~T0 @X0 1 ef2`uc`uc ]
+"359
+[; ;fifo.c: 359: {
+{
+[e :U _printExec ]
+"358
+[; ;fifo.c: 358: void printExec (char col, char ind)
+[v _col `uc ~T0 @X0 1 r1 ]
+[v _ind `uc ~T0 @X0 1 r2 ]
+"359
+[; ;fifo.c: 359: {
+[f ]
+"360
+[; ;fifo.c: 360:     char passo = posAtual( ind );
+[v _passo `uc ~T0 @X0 1 a ]
+[e = _passo ( _posAtual (1 _ind ]
+"362
+[; ;fifo.c: 362:     if(passo & 0x80)
+[e $ ! != & -> _passo `i -> 128 `i -> 0 `i 96  ]
+"363
+[; ;fifo.c: 363:     {
+{
+"364
+[; ;fifo.c: 364:         passo &= 0x7F;
+[e =& _passo -> -> 127 `i `uc ]
+"365
+[; ;fifo.c: 365:         if( dignum_tam( (int) passo ) == 3 )
+[e $ ! == -> ( _dignum_tam (1 -> _passo `i `i -> 3 `i 97  ]
+"366
+[; ;fifo.c: 366:             col-=1;
+[e =- _col -> -> 1 `i `uc ]
+[e :U 97 ]
+"367
+[; ;fifo.c: 367:         dispLCD_num(0, col, (int)passo, dignum_tam( (int)passo) );
+[e ( _dispLCD_num (4 , , , -> -> 0 `i `uc -> _col `uc -> _passo `i ( _dignum_tam (1 -> _passo `i ]
+"368
+[; ;fifo.c: 368:         dispLCD_dataReg('s');
+[e ( _dispLCD_dataReg (1 -> -> 115 `ui `uc ]
+"369
+[; ;fifo.c: 369:     }
+}
+[e $U 98  ]
+"370
+[; ;fifo.c: 370:     else if( (passo >= 'A') && (passo <= 'z') )
+[e :U 96 ]
+[e $ ! && >= -> _passo `ui -> 65 `ui <= -> _passo `ui -> 122 `ui 99  ]
+"371
+[; ;fifo.c: 371:     {
+{
+"372
+[; ;fifo.c: 372:         dispLCD_lincol(0, col);
+[e ( _dispLCD_lincol (2 , -> -> 0 `i `uc -> _col `uc ]
+"373
+[; ;fifo.c: 373:         dispLCD_dataReg( passo & ~0x20 );
+[e ( _dispLCD_dataReg (1 -> & -> _passo `i ~ -> 32 `i `uc ]
+"374
+[; ;fifo.c: 374:         dispLCD_dataReg( passo & 0x20 ? '-': '+' );
+[e ( _dispLCD_dataReg (1 -> ? != & -> _passo `i -> 32 `i -> 0 `i : -> 45 `ui -> 43 `ui `uc ]
+"375
+[; ;fifo.c: 375:     }
+}
+[e :U 99 ]
+[e :U 98 ]
+"376
+[; ;fifo.c: 376: }
+[e :UE 95 ]
+}

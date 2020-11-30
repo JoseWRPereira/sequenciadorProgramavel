@@ -322,6 +322,7 @@ void main(void)
                                    case 'B':
                                    case 'C':
                                    case 'D':
+                                       dispLCD(1, 0, "                ");
                                        estado = TELA_PRINTFILA;
                                        break;
                                    case '#':
