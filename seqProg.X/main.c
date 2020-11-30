@@ -322,6 +322,7 @@ void main(void)
                                    case 'B':
                                    case 'C':
                                    case 'D':
+                                       dispLCD(1, 0, "                ");
                                        estado = TELA_PRINTFILA;
                                        break;
                                    case '#':
@@ -370,7 +371,7 @@ void main(void)
             case 3:
                             if(auxPasso & 0x80)
                             {
-                                setT1( (auxPasso & 0x7F) * 1000 );
+                                setT1( (unsigned long int)(auxPasso & 0x7F) * 1000 );
                                 meAtuadores = 4;
                             }
                             else
